@@ -76,6 +76,8 @@ Public Class Form1
     End Sub
 
     Private Sub Panel6_Click(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Panel6.Click
+        If Panel6.Enabled = False Then Exit Sub
+        Me.ActiveControl = sender
         SaveFrame(CurrentFrame)
         firstFrameInRow += 1
         CurrentFrame += 1
@@ -104,7 +106,8 @@ Public Class Form1
 
     End Sub
     Private Sub Panel7_Click(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Panel7.Click
-
+        If Panel7.Enabled = False Then Exit Sub
+        Me.ActiveControl = sender
         SaveFrame(CurrentFrame)
         firstFrameInRow -= 1
         CurrentFrame -= 1
@@ -166,6 +169,29 @@ Public Class Form1
         Process.GetCurrentProcess.Kill()
         End
 
+    End Sub
+
+    Private Sub Form1_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Me.KeyDown, Label1.KeyDown, Button2.KeyDown, Button9.KeyDown, Button10.KeyDown, _
+    Panel6.KeyDown, Panel7.KeyDown, Panel12.KeyDown, Panel13.KeyDown, Panel14.KeyDown, Panel15.KeyDown
+        'Me.ActiveControl = sender
+
+        Dim ev As New MouseEventArgs(Windows.Forms.MouseButtons.Left, 1, 0, 0, 0)
+
+        Select Case e.KeyCode
+
+            Case Keys.Right
+
+                If curFrameIdxInPlace = 3 Then Panel6_Click(Panel6, ev)
+                If curFrameIdxInPlace = 2 Then Panel15_Click(Panel15, ev)
+                If curFrameIdxInPlace = 1 Then Panel14_Click(Panel14, ev)
+                If curFrameIdxInPlace = 0 Then Panel13_Click(Panel13, ev)
+
+            Case Keys.Left
+                If curFrameIdxInPlace = 0 Then Panel7_Click(Panel7, ev)
+                If curFrameIdxInPlace = 1 Then Panel12_Click(Panel12, ev)
+                If curFrameIdxInPlace = 2 Then Panel13_Click(Panel13, ev)
+                If curFrameIdxInPlace = 3 Then Panel14_Click(Panel14, ev)
+        End Select
     End Sub
 
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -240,8 +266,25 @@ Public Class Form1
     Public StaticMousePos As IrrlichtNETCP.Vector2D
     Dim Pivot As New IrrlichtNETCP.Vector2D
 
+    Dim isCtrlShiftPressed = False
+    Private Sub Panel16_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Panel16.KeyDown
+        If e.Shift And e.Control Then
+            isCtrlShiftPressed = True
+        End If
+
+    End Sub
+    Private Sub Panel16_KeyUp(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Panel16.KeyUp
+
+            isCtrlShiftPressed = True
+
+
+    End Sub
+
+
+    '----------- FLAG: Here go the controls ------------------- Die Kontrolle sind hierher!
     Private Sub Panel16_MouseMove(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Panel16.MouseMove
         If Loading Then Exit Sub
+        Me.ActiveControl = Panel16
 
         If MouseButtons <> Windows.Forms.MouseButtons.None Then textbox5_focus = False : Me.ActiveControl = Label1 'update non focus when updating uv
 
@@ -367,6 +410,7 @@ Public Class Form1
                             bMinY = Math.Abs(Selectors(i).Y - Selectors(Selected(0)).Y)
                         End If
 
+
                         ' If Math.Abs(Selectors(i).Y - Selectors(Selected(0)).Y) > bMaxY Then
                         'posMaxY = i
                         '  bMaxY = Math.Abs(Selectors(i).Y - Selectors(Selected(0)).Y)
@@ -479,14 +523,21 @@ Public Class Form1
     Private Sub Panel16_Paint(ByVal sender As System.Object, ByVal e As System.Windows.Forms.PaintEventArgs) Handles Panel16.Paint
 
     End Sub
+
+    Dim curFrameIdxInPlace = 0
     Sub Basculate(ByVal TargetPanel As Panel) 'for saving and images and etc
+        If TargetPanel Is Panel12 Then curFrameIdxInPlace = 0 _
+        Else If TargetPanel Is Panel13 Then curFrameIdxInPlace = 1 _
+        Else If TargetPanel Is Panel14 Then curFrameIdxInPlace = 2 _
+        Else If TargetPanel Is Panel15 Then curFrameIdxInPlace = 3
+
         Application.DoEvents()
         SaveFrame(CurrentFrame)
 
         Dim step_! = (TargetPanel.Left - Label2.Left) / Math.Abs(TargetPanel.Left - Label2.Left + 0.01)
         For i = 0 To Math.Abs(Label2.Left - TargetPanel.Left) Step 3
             Application.DoEvents()
-            Label2.Left += step_ * 3
+            Label2.Left += step_ * 5
         Next
     End Sub
     Enum Dirtype
@@ -529,6 +580,8 @@ Public Class Form1
         End Select
     End Sub
     Private Sub Panel12_Click(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Panel12.MouseDown
+        If Panel12.Enabled = False Then Exit Sub
+        Me.ActiveControl = sender
         If e.Button <> Windows.Forms.MouseButtons.None Then
 
             Basculate(Panel12)
@@ -555,6 +608,8 @@ Public Class Form1
 
     
     Private Sub Panel13_Click(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Panel13.MouseDown
+        If Panel13.Enabled = False Then Exit Sub
+        Me.ActiveControl = sender
         If e.Button <> Windows.Forms.MouseButtons.None Then
             Basculate(Panel13)
             CurrentFrame = firstFrameInRow + 1
@@ -578,6 +633,8 @@ Public Class Form1
 
     End Sub
     Private Sub Panel14_Click(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Panel14.MouseDown
+        If Panel14.Enabled = False Then Exit Sub
+        Me.ActiveControl = sender
         If e.Button <> Windows.Forms.MouseButtons.None Then
             Basculate(Panel14)
             CurrentFrame = firstFrameInRow + 2
@@ -600,6 +657,8 @@ Public Class Form1
 
     End Sub
     Private Sub Panel15_Click(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Panel15.MouseDown
+        If Panel15.Enabled = False Then Exit Sub
+        Me.ActiveControl = sender
         If e.Button <> Windows.Forms.MouseButtons.None Then
             Basculate(Panel15)
             CurrentFrame = firstFrameInRow + 3
@@ -620,6 +679,7 @@ Public Class Form1
             Panel18.Show()
         End If
     End Sub
+
 
     Sub EnableDisablePanels()
     
@@ -686,9 +746,14 @@ Public Class Form1
     End Sub
 
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
+        'Hmmm... I have made this a long time ago, so I think this is the main synchronizer
+        'To put it simple, this shit code uses a time to start the work, to relieve a bit CPU usage
+        'And a lot of repetition too, TOO MUCH
+        'Thank you....
+
         Panel9.Visible = State = EditModes.Rotate_
 
-        Label7.Text = "FRAME: " & CurrentFrame
+        Label7.Text = "KEYFRAME: " & Strings.Format(CurrentFrame, "00") & "/" & Frames.Count
         Try
             Panel12.BackgroundImage = SaveUVintoPICTURE(firstFrameInRow)
 
@@ -712,10 +777,10 @@ Public Class Form1
         End Try
 
         'update labels for each simulation
-        getinfo(Label15, 0)
-        getinfo(Label16, 1)
-        getinfo(Label17, 2)
-        getinfo(Label18, 3)
+        getinfo(Label15, Panel12, 0)
+        getinfo(Label16, Panel13, 1)
+        getinfo(Label17, Panel14, 2)
+        getinfo(Label18, Panel15, 3)
 
 
         'Update textbox5 (UV positions, if not highlighted) if textbox5 is not highlighted, otherwise, update uv from textbox5.text 
@@ -776,16 +841,46 @@ cleanupbadformattingorfinish:
     End Sub
     Dim prevTextbox5$
 
-    Sub getinfo(ByRef lbl As Label, ByVal offsettofirstframeinrow As Integer)
+    Sub getinfo(ByRef lbl As Label, ByRef Pnl As Panel, ByVal offsettofirstframeinrow As Integer)
         Try
             If Frames.Count > firstFrameInRow + offsettofirstframeinrow Then
 
                 If Frames(firstFrameInRow + offsettofirstframeinrow).Type = AnimType.Static_ Then 'static 
                     lbl.Text = Frames(firstFrameInRow + offsettofirstframeinrow).Type.ToString & "(" & Frames(firstFrameInRow + offsettofirstframeinrow).Delay & "ms), F#" & (firstFrameInRow + +offsettofirstframeinrow)
                 Else
-                    lbl.Text = Frames(firstFrameInRow + offsettofirstframeinrow).Type.ToString & "(" & Frames(firstFrameInRow + 0).Delay & "ms in " & Frames(firstFrameInRow + offsettofirstframeinrow).ImageCount & "img), F#" & (firstFrameInRow + 0)
+                    lbl.Text = Frames(firstFrameInRow + offsettofirstframeinrow).Type.ToString & "(" & Frames(firstFrameInRow + offsettofirstframeinrow).Delay & "ms in " & Frames(firstFrameInRow + offsettofirstframeinrow).ImageCount & "img), F#" & (firstFrameInRow + 0)
                 End If
 
+
+                'Check if it's a linker frame! (delay = 0, preceeded by animation)
+
+                If Frames(firstFrameInRow + offsettofirstframeinrow).Delay = 0 Then
+                    If (firstFrameInRow + offsettofirstframeinrow - 1) > -1 AndAlso Frames(firstFrameInRow + offsettofirstframeinrow - 1).Type <> AnimType.Static_ Then
+                        lbl.BackColor = Color.Honeydew
+                        lbl.Text &= "-L"
+                        lbl.Tag = "[LINKER FRAME]"
+                    Else
+                        lbl.BackColor = Color.Red
+                        lbl.Text &= "[NULL FRAME]"
+                        lbl.Tag = "[NULL FRAME]"
+                    End If
+                Else
+                    lbl.Tag = ""
+                    lbl.BackColor = Color.Transparent
+                End If
+
+                ToolTip1.SetToolTip(Pnl, "Key Frame: " & (firstFrameInRow + offsettofirstframeinrow) & " (uses tex " & Chr(97 + Frames(firstFrameInRow + offsettofirstframeinrow).Tex) & ")" & vbNewLine & _
+                                    "Animation : " & Frames(firstFrameInRow + offsettofirstframeinrow).Type.ToString.Replace("_", "") & " " & lbl.Tag & vbNewLine & _
+                         If(Frames(firstFrameInRow + offsettofirstframeinrow).Type = AnimType.Static_, "", "Total ") & "Duration: " & Frames(firstFrameInRow + offsettofirstframeinrow).Delay & "ms" & vbNewLine & _
+                                    If(Frames(firstFrameInRow + offsettofirstframeinrow).Type <> AnimType.Static_, "Total Frames: " & Frames(firstFrameInRow + offsettofirstframeinrow).ImageCount & vbNewLine, "") & _
+                  "Animation Speed: [place reserved]" & vbNewLine & _
+                  If(Frames(firstFrameInRow + offsettofirstframeinrow).Type = AnimType.Shake_, "Shake Level in %: " & Frames(firstFrameInRow + offsettofirstframeinrow).NoiseLevel, ""))
+
+
+            Else
+                lbl.Text = ""
+                ToolTip1.SetToolTip(Pnl, "")
+                lbl.BackColor = Color.Transparent
             End If
         Catch ex As Exception
         End Try
@@ -918,6 +1013,7 @@ cleanupbadformattingorfinish:
         Panel4.Enabled = False
         Panel6.Enabled = False
         Panel7.Enabled = False
+
         Button9.Enabled = False
         Button10.Enabled = False
         LatestFrame = 0
@@ -928,10 +1024,24 @@ cleanupbadformattingorfinish:
     End Sub
     Public LatestFrame = 0
     Public mStep = 0
+    Dim random As New Random(0)
+    Dim linDisp!
     Private Sub Timer2_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer2.Tick
+
+        If Frames(0).Delay = 0 Then 'Never should it be here
+            Debugx("Frames(" & LatestFrame & ").time = 0")
+            MsgBox("Frames(" & LatestFrame & ").time = 0", MsgBoxStyle.Critical, "Error")
+            Timer2.Stop()
+            Exit Sub
+        End If
+
 
 
         Label6.Text = "|> Playing (" & LatestFrame & ")"
+
+        If Frames.Count = 0 Then
+            Button5.PerformClick() 'Stop
+        End If
 
 
         'different previews :-/
@@ -943,18 +1053,19 @@ cleanupbadformattingorfinish:
                 Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(3).TCoords = Frames(LatestFrame).UV(1)
 
                 PScn.GetMaterial(0).Texture1 = videoDriver.GetTexture(WorldPath & WorldName & Chr(65 + Frames(LatestFrame).Tex) & ".bmp")
-                If Frames(LatestFrame).Delay = 0 Then
-                    MsgBox("Frames(" & LatestFrame & ").time = 0", MsgBoxStyle.Critical, "Error")
-                    Timer2.Stop()
-                    Exit Sub
+
+                If Frames(LatestFrame).Delay <> 0 Then
+                    Timer2.Interval = Frames(LatestFrame).Delay 'keep same as last!
                 End If
 
+                ' If LatestFrame >= Frames.Count - 1 Then
+                'LatestFrame = -1 'rewind, attempt to recover
+                ' End If
 
-                Timer2.Interval = Frames(LatestFrame).Delay
                 LatestFrame += 1
                 If LatestFrame >= Frames.Count Then LatestFrame = 0
 
-            Case AnimType.linear_ 'LINEAR
+            Case AnimType.Linear_ 'LINEAR
                 If Frames.Count <= LatestFrame + 1 Then
                     Timer2.Stop()
                     MsgBox("Frames(" & LatestFrame + 1 & ") doesn't exist which is required for linear animation")
@@ -983,43 +1094,6 @@ cleanupbadformattingorfinish:
                 End If
 
 
-            Case AnimType.grid_ 'Grid
-
-                '3 0 2 1'
-
-                '0 1 
-                '3 2'
-                Dim ofx! = Math.Min(Frames(LatestFrame).UV(3).X, Frames(LatestFrame).UV(0).X)
-                Dim ofy! = Math.Min(Frames(LatestFrame).UV(0).Y, Frames(LatestFrame).UV(1).Y)
-                Dim sx! = (Frames(LatestFrame).UV(1).X - Frames(LatestFrame).UV(0).X) / Math.Sqrt(Frames(LatestFrame).ImageCount)
-                Dim sy! = (Frames(LatestFrame).UV(3).Y - Frames(LatestFrame).UV(0).Y) / Math.Sqrt(Frames(LatestFrame).ImageCount)
-
-                Dim cy = Math.Floor(mStep / Math.Sqrt(Frames(LatestFrame).ImageCount))
-                Dim cx = mStep / Math.Sqrt(Frames(LatestFrame).ImageCount) - Math.Floor(mStep / Math.Sqrt(Frames(LatestFrame).ImageCount))
-
-
-
-                Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(0).TCoords = New IrrlichtNETCP.Vector2D((cx + 0) * sx + ofx, (cy + 1) * sy + ofy)
-                Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(1).TCoords = New IrrlichtNETCP.Vector2D((cx + 0) * sx + ofx, (cy + 0) * sy + ofy)
-                Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(2).TCoords = New IrrlichtNETCP.Vector2D((cx + 1) * sx + ofx, (cy + 1) * sy + ofy)
-                Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(3).TCoords = New IrrlichtNETCP.Vector2D((cx + 1) * sx + ofx, (cy + 0) * sy + ofy)
-
-                PScn.GetMaterial(0).Texture1 = videoDriver.GetTexture(WorldPath & WorldName & Chr(65 + Frames(LatestFrame).Tex) & ".bmp")
-
-                If Frames(LatestFrame).Delay = 0 Then
-                    MsgBox("Frames(" & LatestFrame & ").time = 0", MsgBoxStyle.Critical, "Error")
-                    Timer2.Stop()
-                    Exit Sub
-                End If
-
-
-                Timer2.Interval = Math.Max(1, Frames(LatestFrame).Delay / Frames(LatestFrame).ImageCount)
-                mStep += 1
-                If mStep >= Frames(LatestFrame).ImageCount Then
-                    LatestFrame += 1
-                    mStep = 0
-                    If LatestFrame >= Frames.Count Then LatestFrame = 0
-                End If
 
             Case AnimType.Rotation_  'ROTATION
 
@@ -1069,6 +1143,159 @@ cleanupbadformattingorfinish:
 
 
 
+            Case AnimType.Grid_ 'Grid
+                'TODO: Grid 2
+                '3 0 2 1'
+
+                '3 2 
+                '0 1'
+                Dim ofx! = Math.Min(Frames(LatestFrame).UV(3).X, Frames(LatestFrame).UV(0).X)
+                Dim ofy! = Math.Min(Frames(LatestFrame).UV(0).Y, Frames(LatestFrame).UV(1).Y)
+                Dim sx! = (Frames(LatestFrame).UV(1).X - Frames(LatestFrame).UV(0).X) / Math.Sqrt(Frames(LatestFrame).ImageCount)
+                Dim sy! = (Frames(LatestFrame).UV(3).Y - Frames(LatestFrame).UV(0).Y) / Math.Sqrt(Frames(LatestFrame).ImageCount)
+
+                Dim cy = Math.Floor(mStep / Math.Sqrt(Frames(LatestFrame).ImageCount))
+                Dim cx = (mStep / Math.Sqrt(Frames(LatestFrame).ImageCount) - Math.Floor(mStep / Math.Sqrt(Frames(LatestFrame).ImageCount))) * Math.Sqrt(Frames(LatestFrame).ImageCount)
+
+
+
+                Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(0).TCoords = New IrrlichtNETCP.Vector2D((cx + 0) * sx + ofx, (cy + 1) * sy + ofy)
+                Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(1).TCoords = New IrrlichtNETCP.Vector2D((cx + 0) * sx + ofx, (cy + 0) * sy + ofy)
+                Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(2).TCoords = New IrrlichtNETCP.Vector2D((cx + 1) * sx + ofx, (cy + 1) * sy + ofy)
+                Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(3).TCoords = New IrrlichtNETCP.Vector2D((cx + 1) * sx + ofx, (cy + 0) * sy + ofy)
+
+                PScn.GetMaterial(0).Texture1 = videoDriver.GetTexture(WorldPath & WorldName & Chr(65 + Frames(LatestFrame).Tex) & ".bmp")
+
+                If Frames(LatestFrame).Delay = 0 Then
+                    MsgBox("Frames(" & LatestFrame & ").time = 0", MsgBoxStyle.Critical, "Error")
+                    Timer2.Stop()
+                    Exit Sub
+                End If
+
+
+                Timer2.Interval = Math.Max(1, Frames(LatestFrame).Delay / Frames(LatestFrame).ImageCount)
+                mStep += 1
+                If mStep >= Frames(LatestFrame).ImageCount Then
+                    LatestFrame += 1
+                    mStep = 0
+                    If LatestFrame >= Frames.Count Then LatestFrame = 0
+                End If
+
+
+
+
+            Case AnimType.Shake_ 'Shake
+
+
+                '0 1 
+                '3 2'
+                If mStep = 0 Then 'Random Seed reset at first step!
+                    random = New Random(NumericUpDown1.Value)
+
+                End If
+
+                Dim ofx As Single, ofy As Single, dispVec As IrrlichtNETCP.Vector2D
+                Try
+                    ofx! = Math.Abs(Frames(LatestFrame).UV(1).X - Frames(LatestFrame).UV(0).X) * Frames(LatestFrame).NoiseLevel / 100 * (random.NextDouble() - 0.5) * 2 ' Single.Parse(TextBox6.Text)
+                    ofy! = Math.Abs(Frames(LatestFrame).UV(3).Y - Frames(LatestFrame).UV(0).Y) * Frames(LatestFrame).NoiseLevel / 100 * (random.NextDouble() - 0.5) * 2 'Single.Parse(TextBox6.Text)
+                    dispVec = New IrrlichtNETCP.Vector2D(ofx, ofy)
+                Catch ex As Exception
+
+                End Try
+
+
+
+
+                Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(0).TCoords = Frames(LatestFrame).UV(3) + dispVec
+                Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(1).TCoords = Frames(LatestFrame).UV(0) + dispVec
+                Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(2).TCoords = Frames(LatestFrame).UV(2) + dispVec
+                Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(3).TCoords = Frames(LatestFrame).UV(1) + dispVec
+
+                PScn.GetMaterial(0).Texture1 = videoDriver.GetTexture(WorldPath & WorldName & Chr(65 + Frames(LatestFrame).Tex) & ".bmp")
+
+                If Frames(LatestFrame).Delay = 0 Then
+                    MsgBox("Frames(" & LatestFrame & ").time = 0", MsgBoxStyle.Critical, "Error")
+                    Timer2.Stop()
+                    Exit Sub
+                End If
+
+
+                Timer2.Interval = Math.Max(1, Frames(LatestFrame).Delay / Frames(LatestFrame).ImageCount)
+                mStep += 1
+                If mStep >= Frames(LatestFrame).ImageCount Then
+                    LatestFrame += 1
+                    mStep = 0
+                    If LatestFrame >= Frames.Count Then LatestFrame = 0
+                End If
+
+
+
+                ' ---------------------------------- Linear w/ wo/ Smooth (In/Out/Inout)-----------------------------------------------------------------'
+            Case AnimType.Linear_
+                linDisp! = Animation_Linear(mStep, Frames(LatestFrame).ImageCount)
+                GoTo linear_movements
+
+            Case AnimType.LSmooth_
+                linDisp = Animation_SmoothCos(mStep, Frames(LatestFrame).ImageCount)
+                GoTo linear_movements
+
+            Case AnimType.LSmthBmerng_
+                linDisp = Animation_SmoothCosBoomerang(mStep, Frames(LatestFrame).ImageCount)
+                GoTo linear_movements
+
+
+            Case AnimType.LEaseIn_
+                linDisp = Animation_EaseInQuad(mStep, Frames(LatestFrame).ImageCount)
+                GoTo linear_movements
+
+            Case AnimType.LAccIn_
+                linDisp = Animation_AccInSqrt(mStep, Frames(LatestFrame).ImageCount)
+                GoTo linear_movements
+
+            Case AnimType.LEaseOut_
+                linDisp = Animation_EaseOutQuad(mStep, Frames(LatestFrame).ImageCount)
+                GoTo linear_movements
+
+            Case AnimType.LEaseInOut_
+                linDisp = Animation_EaseInOutArctanAsSigmoid(mStep, Frames(LatestFrame).ImageCount)
+                GoTo linear_movements
+
+            Case AnimType.Linear_
+
+
+linear_movements:
+
+                If Frames.Count <= LatestFrame + 1 Then
+                    Timer2.Stop()
+                    MsgBox("Frames(" & LatestFrame + 1 & ") doesn't exist which is required for linear animation")
+                    Exit Sub
+                End If
+
+                Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(0).TCoords = Frames(LatestFrame).UV(3) + (Frames(LatestFrame + 1).UV(3) - Frames(LatestFrame).UV(3)) * linDisp
+                Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(1).TCoords = Frames(LatestFrame).UV(0) + (Frames(LatestFrame + 1).UV(0) - Frames(LatestFrame).UV(0)) * linDisp
+                Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(2).TCoords = Frames(LatestFrame).UV(2) + (Frames(LatestFrame + 1).UV(2) - Frames(LatestFrame).UV(2)) * linDisp
+                Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(3).TCoords = Frames(LatestFrame).UV(1) + (Frames(LatestFrame + 1).UV(1) - Frames(LatestFrame).UV(1)) * linDisp
+
+                PScn.GetMaterial(0).Texture1 = videoDriver.GetTexture(WorldPath & WorldName & Chr(65 + Frames(LatestFrame).Tex) & ".bmp")
+
+                If Frames(LatestFrame).Delay = 0 Then
+                    MsgBox("Frames(" & LatestFrame & ").time = 0", MsgBoxStyle.Critical, "Error")
+                    Timer2.Stop()
+                    Exit Sub
+                End If
+
+
+                Timer2.Interval = Math.Max(1, Frames(LatestFrame).Delay / Frames(LatestFrame).ImageCount)
+                mStep += 1
+                If mStep >= Frames(LatestFrame).ImageCount Then
+                    LatestFrame += 1
+                    mStep = 0
+                    If LatestFrame >= Frames.Count Then LatestFrame = 0
+                End If
+
+
+
+
 
         End Select
 
@@ -1084,8 +1311,9 @@ cleanupbadformattingorfinish:
     Private Sub Button4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Panel16.Enabled = True
         Panel4.Enabled = True
-        Panel6.Enabled = True
-        Panel7.Enabled = True
+        ' Panel6.Enabled = True
+        'Panel7.Enabled = True
+        EnableDisablePanels()
         Button9.Enabled = True
         Button10.Enabled = True
 
@@ -1111,8 +1339,9 @@ cleanupbadformattingorfinish:
      
         Panel16.Enabled = True
         Panel4.Enabled = True
-        Panel6.Enabled = True
-        Panel7.Enabled = True
+        ' Panel6.Enabled = True
+        'Panel7.Enabled = True
+        EnableDisablePanels()
         Button9.Enabled = True
         Button10.Enabled = True
 
@@ -1144,7 +1373,7 @@ Cursor.Position.Y < Me.Location.Y + Panel18.Location.Y + Panel18.Height Then
             End If
         End If
     End Sub
-    Function cSingle(ByVal str$) As Single
+    Function cSingle(ByVal str$) As Single 'Für Verrückten, die wollen irgendwie beiden Decimalseparator nutzen, Vielleicht ¨ware es eine güte Idee, die UI Globalisierung Parameter um Global US parameter zu setzen
         Try
             If InStr(12.5, ",") > 0 Then
                 str = Replace(str, ".", ",")
@@ -1159,6 +1388,7 @@ Cursor.Position.Y < Me.Location.Y + Panel18.Location.Y + Panel18.Height Then
         End Try
 
     End Function
+    'Delay textbox
     Private Sub TextBox1_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TextBox1.TextChanged
         Try
             Frames(CurrentFrame).Delay = cSingle(TextBox1.Text)
@@ -1167,7 +1397,17 @@ Cursor.Position.Y < Me.Location.Y + Panel18.Location.Y + Panel18.Height Then
 
         End Try
     End Sub
+    'Noise level text box
+    Private Sub TextBox6_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TextBox6.TextChanged
+        If Frames.Count = 0 Or Frames.Count < CurrentFrame Then Exit Sub
+        Try
+            Frames(CurrentFrame).NoiseLevel = cSingle(TextBox6.Text)
 
+        Catch ex As Exception
+
+        End Try
+    End Sub
+    'Image count text box
     Private Sub TextBox3_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TextBox3.TextChanged
         If Frames.Count = 0 Then Exit Sub
 
@@ -1336,6 +1576,11 @@ Cursor.Position.Y < Me.Location.Y + Panel18.Location.Y + Panel18.Height Then
 
 
 
+        If Frames(CurrentFrame).Type = AnimType.Shake_ Then
+            TextBox6.Enabled = True
+        Else
+            TextBox6.Enabled = False
+        End If
     End Sub
 
 
@@ -1352,7 +1597,7 @@ Cursor.Position.Y < Me.Location.Y + Panel18.Location.Y + Panel18.Height Then
     Private Sub Button16_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button16.Click
 
         Panel8.Hide()
-        If Frames.Count <= CurrentFrame + 1 Then
+        If Frames.Count <= CurrentFrame + 1 And (Frames(CurrentFrame).Type <> AnimType.Shake_ And Frames(CurrentFrame).Type <> AnimType.Grid_) Then
             Timer2.Stop()
             MsgBox("Recipe is incomplete, you forgot the next frame! >_>", MsgBoxStyle.Critical)
             Exit Sub

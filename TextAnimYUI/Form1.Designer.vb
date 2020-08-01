@@ -59,6 +59,13 @@ Partial Class Form1
         Me.Panel16 = New System.Windows.Forms.Panel
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Panel18 = New System.Windows.Forms.Panel
+        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown
+        Me.TextBox6 = New System.Windows.Forms.TextBox
+        Me.ComboBox2 = New System.Windows.Forms.ComboBox
+        Me.Label4 = New System.Windows.Forms.Label
+        Me.Label21 = New System.Windows.Forms.Label
+        Me.Label22 = New System.Windows.Forms.Label
+        Me.Label20 = New System.Windows.Forms.Label
         Me.Button17 = New System.Windows.Forms.Button
         Me.Button15 = New System.Windows.Forms.Button
         Me.TextBox3 = New System.Windows.Forms.TextBox
@@ -67,10 +74,8 @@ Partial Class Form1
         Me.Button13 = New System.Windows.Forms.Button
         Me.Button12 = New System.Windows.Forms.Button
         Me.Button11 = New System.Windows.Forms.Button
-        Me.ComboBox2 = New System.Windows.Forms.ComboBox
         Me.Label5 = New System.Windows.Forms.Label
         Me.TextBox1 = New System.Windows.Forms.TextBox
-        Me.Label4 = New System.Windows.Forms.Label
         Me.Label3 = New System.Windows.Forms.Label
         Me.Panel8 = New System.Windows.Forms.Panel
         Me.Button4 = New System.Windows.Forms.Button
@@ -96,6 +101,7 @@ Partial Class Form1
         Me.TextBox4 = New System.Windows.Forms.TextBox
         Me.ComboBox3 = New System.Windows.Forms.ComboBox
         Me.Label19 = New System.Windows.Forms.Label
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -103,6 +109,7 @@ Partial Class Form1
         Me.Panel15.SuspendLayout()
         Me.Panel5.SuspendLayout()
         Me.Panel18.SuspendLayout()
+        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel8.SuspendLayout()
         Me.Panel9.SuspendLayout()
         Me.SuspendLayout()
@@ -212,7 +219,7 @@ Partial Class Form1
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(140, 4)
+        Me.Label7.Location = New System.Drawing.Point(109, 5)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(49, 15)
         Me.Label7.TabIndex = 7
@@ -324,7 +331,6 @@ Partial Class Form1
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(151, 15)
         Me.Label18.TabIndex = 0
-        Me.Label18.Text = "Constant"
         '
         'Label17
         '
@@ -333,7 +339,6 @@ Partial Class Form1
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(151, 15)
         Me.Label17.TabIndex = 0
-        Me.Label17.Text = "Constant"
         '
         'Label16
         '
@@ -342,7 +347,6 @@ Partial Class Form1
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(151, 15)
         Me.Label16.TabIndex = 0
-        Me.Label16.Text = "Constant"
         '
         'Label15
         '
@@ -351,7 +355,6 @@ Partial Class Form1
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(151, 15)
         Me.Label15.TabIndex = 0
-        Me.Label15.Text = "Constant"
         '
         'Label2
         '
@@ -451,18 +454,20 @@ Partial Class Form1
         '
         Me.Panel6.BackColor = System.Drawing.Color.Transparent
         Me.Panel6.BackgroundImage = CType(resources.GetObject("Panel6.BackgroundImage"), System.Drawing.Image)
+        Me.Panel6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Panel6.Location = New System.Drawing.Point(704, 374)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(42, 141)
+        Me.Panel6.Size = New System.Drawing.Size(54, 141)
         Me.Panel6.TabIndex = 5
         '
         'Panel7
         '
         Me.Panel7.BackColor = System.Drawing.Color.Transparent
         Me.Panel7.BackgroundImage = CType(resources.GetObject("Panel7.BackgroundImage"), System.Drawing.Image)
-        Me.Panel7.Location = New System.Drawing.Point(14, 374)
+        Me.Panel7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Panel7.Location = New System.Drawing.Point(0, 374)
         Me.Panel7.Name = "Panel7"
-        Me.Panel7.Size = New System.Drawing.Size(39, 141)
+        Me.Panel7.Size = New System.Drawing.Size(53, 141)
         Me.Panel7.TabIndex = 6
         '
         'ComboBox1
@@ -493,6 +498,13 @@ Partial Class Form1
         Me.Panel18.BackgroundImage = Global.TextAnimYUI.My.Resources.Resources.back1
         Me.Panel18.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Panel18.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel18.Controls.Add(Me.NumericUpDown1)
+        Me.Panel18.Controls.Add(Me.TextBox6)
+        Me.Panel18.Controls.Add(Me.ComboBox2)
+        Me.Panel18.Controls.Add(Me.Label4)
+        Me.Panel18.Controls.Add(Me.Label21)
+        Me.Panel18.Controls.Add(Me.Label22)
+        Me.Panel18.Controls.Add(Me.Label20)
         Me.Panel18.Controls.Add(Me.Button17)
         Me.Panel18.Controls.Add(Me.Button15)
         Me.Panel18.Controls.Add(Me.TextBox3)
@@ -501,20 +513,89 @@ Partial Class Form1
         Me.Panel18.Controls.Add(Me.Button13)
         Me.Panel18.Controls.Add(Me.Button12)
         Me.Panel18.Controls.Add(Me.Button11)
-        Me.Panel18.Controls.Add(Me.ComboBox2)
         Me.Panel18.Controls.Add(Me.Label5)
         Me.Panel18.Controls.Add(Me.TextBox1)
-        Me.Panel18.Controls.Add(Me.Label4)
         Me.Panel18.Controls.Add(Me.Label3)
         Me.Panel18.Location = New System.Drawing.Point(87, 103)
         Me.Panel18.Name = "Panel18"
-        Me.Panel18.Size = New System.Drawing.Size(273, 137)
+        Me.Panel18.Size = New System.Drawing.Size(273, 157)
         Me.Panel18.TabIndex = 0
         Me.Panel18.Visible = False
         '
+        'NumericUpDown1
+        '
+        Me.NumericUpDown1.Location = New System.Drawing.Point(215, 86)
+        Me.NumericUpDown1.Name = "NumericUpDown1"
+        Me.NumericUpDown1.Size = New System.Drawing.Size(57, 20)
+        Me.NumericUpDown1.TabIndex = 22
+        '
+        'TextBox6
+        '
+        Me.TextBox6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.TextBox6.Enabled = False
+        Me.TextBox6.Location = New System.Drawing.Point(110, 83)
+        Me.TextBox6.Name = "TextBox6"
+        Me.TextBox6.Size = New System.Drawing.Size(45, 20)
+        Me.TextBox6.TabIndex = 21
+        Me.TextBox6.Text = "10"
+        '
+        'ComboBox2
+        '
+        Me.ComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox2.FormattingEnabled = True
+        Me.ComboBox2.Items.AddRange(New Object() {"Static", "Linear ", "Rotation", "Grid", "Shake", "Smooth ", "Smooth Boomerang", "Ease-In", "Ease-Out", "Ease-InOut", "Acc-In"})
+        Me.ComboBox2.Location = New System.Drawing.Point(83, 7)
+        Me.ComboBox2.Name = "ComboBox2"
+        Me.ComboBox2.Size = New System.Drawing.Size(111, 21)
+        Me.ComboBox2.TabIndex = 12
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.BackColor = System.Drawing.Color.Transparent
+        Me.Label4.Font = New System.Drawing.Font("Calibri", 8.25!)
+        Me.Label4.Location = New System.Drawing.Point(19, 11)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(58, 13)
+        Me.Label4.TabIndex = 1
+        Me.Label4.Text = "Animation:"
+        '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.BackColor = System.Drawing.Color.Transparent
+        Me.Label21.Font = New System.Drawing.Font("Calibri", 8.25!)
+        Me.Label21.Location = New System.Drawing.Point(157, 88)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(15, 13)
+        Me.Label21.TabIndex = 20
+        Me.Label21.Text = "%"
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.BackColor = System.Drawing.Color.Transparent
+        Me.Label22.Font = New System.Drawing.Font("Calibri", 8.25!)
+        Me.Label22.Location = New System.Drawing.Point(173, 89)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(48, 13)
+        Me.Label22.TabIndex = 20
+        Me.Label22.Text = "RndSeed"
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.BackColor = System.Drawing.Color.Transparent
+        Me.Label20.Font = New System.Drawing.Font("Calibri", 8.25!)
+        Me.Label20.Location = New System.Drawing.Point(16, 86)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(122, 13)
+        Me.Label20.TabIndex = 20
+        Me.Label20.Text = "Max Displacement (in %)"
+        '
         'Button17
         '
-        Me.Button17.Location = New System.Drawing.Point(179, 84)
+        Me.Button17.Location = New System.Drawing.Point(182, 105)
         Me.Button17.Name = "Button17"
         Me.Button17.Size = New System.Drawing.Size(84, 21)
         Me.Button17.TabIndex = 19
@@ -523,7 +604,7 @@ Partial Class Form1
         '
         'Button15
         '
-        Me.Button15.Location = New System.Drawing.Point(96, 84)
+        Me.Button15.Location = New System.Drawing.Point(99, 105)
         Me.Button15.Name = "Button15"
         Me.Button15.Size = New System.Drawing.Size(77, 21)
         Me.Button15.TabIndex = 17
@@ -533,7 +614,7 @@ Partial Class Form1
         'TextBox3
         '
         Me.TextBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TextBox3.Location = New System.Drawing.Point(81, 38)
+        Me.TextBox3.Location = New System.Drawing.Point(85, 59)
         Me.TextBox3.Name = "TextBox3"
         Me.TextBox3.Size = New System.Drawing.Size(87, 20)
         Me.TextBox3.TabIndex = 18
@@ -544,15 +625,15 @@ Partial Class Form1
         Me.Label9.AutoSize = True
         Me.Label9.BackColor = System.Drawing.Color.Transparent
         Me.Label9.Font = New System.Drawing.Font("Calibri", 8.25!)
-        Me.Label9.Location = New System.Drawing.Point(14, 41)
+        Me.Label9.Location = New System.Drawing.Point(18, 62)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(41, 13)
+        Me.Label9.Size = New System.Drawing.Size(45, 13)
         Me.Label9.TabIndex = 17
-        Me.Label9.Text = "Images"
+        Me.Label9.Text = "Frames:"
         '
         'Button14
         '
-        Me.Button14.Location = New System.Drawing.Point(7, 108)
+        Me.Button14.Location = New System.Drawing.Point(10, 129)
         Me.Button14.Name = "Button14"
         Me.Button14.Size = New System.Drawing.Size(83, 21)
         Me.Button14.TabIndex = 16
@@ -561,7 +642,7 @@ Partial Class Form1
         '
         'Button13
         '
-        Me.Button13.Location = New System.Drawing.Point(179, 108)
+        Me.Button13.Location = New System.Drawing.Point(182, 129)
         Me.Button13.Name = "Button13"
         Me.Button13.Size = New System.Drawing.Size(81, 21)
         Me.Button13.TabIndex = 15
@@ -570,7 +651,7 @@ Partial Class Form1
         '
         'Button12
         '
-        Me.Button12.Location = New System.Drawing.Point(96, 108)
+        Me.Button12.Location = New System.Drawing.Point(99, 129)
         Me.Button12.Name = "Button12"
         Me.Button12.Size = New System.Drawing.Size(77, 21)
         Me.Button12.TabIndex = 14
@@ -579,29 +660,19 @@ Partial Class Form1
         '
         'Button11
         '
-        Me.Button11.Location = New System.Drawing.Point(7, 84)
+        Me.Button11.Location = New System.Drawing.Point(10, 105)
         Me.Button11.Name = "Button11"
         Me.Button11.Size = New System.Drawing.Size(83, 21)
         Me.Button11.TabIndex = 13
         Me.Button11.Text = "inherit once"
         Me.Button11.UseVisualStyleBackColor = True
         '
-        'ComboBox2
-        '
-        Me.ComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox2.FormattingEnabled = True
-        Me.ComboBox2.Items.AddRange(New Object() {"Static (Slideshow)", "Linear ", "Rotation", "Grid", "Start is smooth [NOT_DONE]", "Finishing is smooth [NOT_DONE]", "Smooth all the way [NOT_DONE]"})
-        Me.ComboBox2.Location = New System.Drawing.Point(78, 62)
-        Me.ComboBox2.Name = "ComboBox2"
-        Me.ComboBox2.Size = New System.Drawing.Size(111, 21)
-        Me.ComboBox2.TabIndex = 12
-        '
         'Label5
         '
         Me.Label5.AutoSize = True
         Me.Label5.BackColor = System.Drawing.Color.Transparent
         Me.Label5.Font = New System.Drawing.Font("Calibri", 8.25!)
-        Me.Label5.Location = New System.Drawing.Point(173, 15)
+        Me.Label5.Location = New System.Drawing.Point(177, 36)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(21, 13)
         Me.Label5.TabIndex = 3
@@ -610,32 +681,21 @@ Partial Class Form1
         'TextBox1
         '
         Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TextBox1.Location = New System.Drawing.Point(81, 12)
+        Me.TextBox1.Location = New System.Drawing.Point(85, 33)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(87, 20)
         Me.TextBox1.TabIndex = 2
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.BackColor = System.Drawing.Color.Transparent
-        Me.Label4.Font = New System.Drawing.Font("Calibri", 8.25!)
-        Me.Label4.Location = New System.Drawing.Point(14, 65)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(58, 13)
-        Me.Label4.TabIndex = 1
-        Me.Label4.Text = "Animation:"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.Font = New System.Drawing.Font("Calibri", 8.25!)
-        Me.Label3.Location = New System.Drawing.Point(14, 15)
+        Me.Label3.Location = New System.Drawing.Point(16, 37)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(64, 13)
+        Me.Label3.Size = New System.Drawing.Size(51, 13)
         Me.Label3.TabIndex = 0
-        Me.Label3.Text = "Delay/Total:"
+        Me.Label3.Text = "Duration:"
         '
         'Panel8
         '
@@ -648,7 +708,7 @@ Partial Class Form1
         Me.Panel8.Controls.Add(Me.Label8)
         Me.Panel8.Controls.Add(Me.TextBox2)
         Me.Panel8.Controls.Add(Me.Label10)
-        Me.Panel8.Location = New System.Drawing.Point(68, 239)
+        Me.Panel8.Location = New System.Drawing.Point(19, 258)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Size = New System.Drawing.Size(273, 124)
         Me.Panel8.TabIndex = 18
@@ -917,6 +977,7 @@ Partial Class Form1
         Me.Panel5.ResumeLayout(False)
         Me.Panel18.ResumeLayout(False)
         Me.Panel18.PerformLayout()
+        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel8.ResumeLayout(False)
         Me.Panel8.PerformLayout()
         Me.Panel9.ResumeLayout(False)
@@ -997,5 +1058,11 @@ Partial Class Form1
     Friend WithEvents TextBox5 As System.Windows.Forms.TextBox
     Friend WithEvents ComboBox3 As System.Windows.Forms.ComboBox
     Friend WithEvents Label19 As System.Windows.Forms.Label
+    Friend WithEvents TextBox6 As System.Windows.Forms.TextBox
+    Friend WithEvents Label21 As System.Windows.Forms.Label
+    Friend WithEvents Label20 As System.Windows.Forms.Label
+    Friend WithEvents NumericUpDown1 As System.Windows.Forms.NumericUpDown
+    Friend WithEvents Label22 As System.Windows.Forms.Label
+    Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
 
 End Class

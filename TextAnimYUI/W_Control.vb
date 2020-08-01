@@ -15,6 +15,7 @@
     End Sub
 
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
+        Form1.Enabled = True
 
         Form1.TimerForAnim.Stop()
         Hide()
@@ -60,6 +61,10 @@
     End Sub
 
     Private Sub W_Control_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
+        Form1.Button5.PerformClick() 'stop animations
+        Form1.Enabled = False
+        'stop animations
+
 
     End Sub
 
@@ -151,8 +156,12 @@
 
     Private Sub Button10_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button10.Click
         Debugx("Loading Animation # " & ListBox1.SelectedIndex)
+        Debugx("- Total Frames: " & CurrentWorld.AllFrames(ListBox1.SelectedIndex).Count)
         Frames.Clear()
+
         Frames.AddRange(CurrentWorld.AllFrames(ListBox1.SelectedIndex))
+
+        Form1.EnableDisablePanels()
         LoadFrame(0)
         CurrentFrame = 0
         firstFrameInRow = 0
@@ -161,5 +170,10 @@
         Form1.EnableDisablePanels()
         Form1.TimerForAnim.Stop()
         Me.Hide()
+    End Sub
+
+    Private Sub Button11_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button11.Click
+        Button10.PerformClick()
+        YUIAutoCook_TimeMachine.TimeMachine_ReturnRecipe()
     End Sub
 End Class

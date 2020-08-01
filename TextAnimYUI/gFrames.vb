@@ -2,8 +2,9 @@
 Module gFrames
 
 
-    Public Class Frame
+    Public Class Frame 'VirtualFrame
         Public ImageCount As Integer = 16
+        Public NoiseLevel As Single = 10.0
         Public Rotation As Single 'required, better than doing problems....
         Public Image As Drawing.Image = Nothing
         Public Tex As Short
@@ -114,13 +115,17 @@ els:
         ' Debugger.Break()
     End Sub
     Enum AnimType
-        Static_ = 0
-        linear_ = 1
-        Rotation_ = 2
-        grid_ = 3
-        smooth_
-        smoothstart_
-        smoothend_
 
+        Static_ = 0
+        Linear_ = 1
+        Rotation_ = 2
+        Grid_ = 3
+        Shake_ = 4
+        LSmooth_ = 5
+        LSmthBmerng_ = 6
+        LEaseIn_ = 7
+        LEaseOut_ = 8
+        LEaseInOut_ = 9
+        LAccIn_ = 10
     End Enum
 End Module

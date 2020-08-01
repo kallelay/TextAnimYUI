@@ -42,7 +42,7 @@ Partial Class Main
         Me.Button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Azure
         Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.Button3.Location = New System.Drawing.Point(497, 0)
+        Me.Button3.Location = New System.Drawing.Point(440, 1)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(24, 18)
         Me.Button3.TabIndex = 3
@@ -58,7 +58,7 @@ Partial Class Main
         Me.Button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MistyRose
         Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button2.ForeColor = System.Drawing.Color.Red
-        Me.Button2.Location = New System.Drawing.Point(527, 0)
+        Me.Button2.Location = New System.Drawing.Point(470, 1)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(24, 18)
         Me.Button2.TabIndex = 2
@@ -84,12 +84,14 @@ Partial Class Main
         '
         Me.Button4.BackColor = System.Drawing.Color.Transparent
         Me.Button4.BackgroundImage = Global.TextAnimYUI.My.Resources.Resources.button
-        Me.Button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.Button4.FlatAppearance.BorderSize = 0
         Me.Button4.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent
         Me.Button4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
         Me.Button4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent
         Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button4.ForeColor = System.Drawing.Color.Beige
         Me.Button4.Location = New System.Drawing.Point(458, 75)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(27, 24)
@@ -126,16 +128,18 @@ Partial Class Main
         Me.Button1.Anchor = System.Windows.Forms.AnchorStyles.Bottom
         Me.Button1.BackColor = System.Drawing.Color.Transparent
         Me.Button1.BackgroundImage = Global.TextAnimYUI.My.Resources.Resources.button
-        Me.Button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.Button1.Enabled = False
         Me.Button1.FlatAppearance.BorderSize = 0
         Me.Button1.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent
-        Me.Button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
-        Me.Button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent
+        Me.Button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.AntiqueWhite
+        Me.Button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCyan
         Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.Location = New System.Drawing.Point(249, 110)
+        Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button1.ForeColor = System.Drawing.Color.Beige
+        Me.Button1.Location = New System.Drawing.Point(232, 113)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(53, 31)
+        Me.Button1.Size = New System.Drawing.Size(37, 31)
         Me.Button1.TabIndex = 9
         Me.Button1.Text = "OK"
         Me.Button1.UseVisualStyleBackColor = False
@@ -145,8 +149,8 @@ Partial Class Main
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = Global.TextAnimYUI.My.Resources.Resources.dialog
-        Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(553, 150)
+        Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.ClientSize = New System.Drawing.Size(495, 150)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)

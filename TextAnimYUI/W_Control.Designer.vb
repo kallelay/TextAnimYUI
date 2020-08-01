@@ -38,6 +38,7 @@ Partial Class W_Control
         Me.savebutton = New System.Windows.Forms.Button
         Me.Button9 = New System.Windows.Forms.Button
         Me.Button10 = New System.Windows.Forms.Button
+        Me.Button11 = New System.Windows.Forms.Button
         Me.Panel1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -134,7 +135,7 @@ Partial Class W_Control
         Me.ListBox1.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ListBox1.HorizontalExtent = 20
         Me.ListBox1.ItemHeight = 15
-        Me.ListBox1.Location = New System.Drawing.Point(11, 27)
+        Me.ListBox1.Location = New System.Drawing.Point(11, 18)
         Me.ListBox1.MinimumSize = New System.Drawing.Size(25, 10)
         Me.ListBox1.Name = "ListBox1"
         Me.ListBox1.Size = New System.Drawing.Size(187, 197)
@@ -152,7 +153,7 @@ Partial Class W_Control
         '
         'Button5
         '
-        Me.Button5.Location = New System.Drawing.Point(6, 251)
+        Me.Button5.Location = New System.Drawing.Point(6, 245)
         Me.Button5.Name = "Button5"
         Me.Button5.Size = New System.Drawing.Size(187, 26)
         Me.Button5.TabIndex = 7
@@ -162,7 +163,7 @@ Partial Class W_Control
         'Button6
         '
         Me.Button6.Font = New System.Drawing.Font("Calibri", 9.25!)
-        Me.Button6.Location = New System.Drawing.Point(182, 92)
+        Me.Button6.Location = New System.Drawing.Point(192, 247)
         Me.Button6.Name = "Button6"
         Me.Button6.Size = New System.Drawing.Size(31, 26)
         Me.Button6.TabIndex = 8
@@ -172,7 +173,7 @@ Partial Class W_Control
         '
         'Button7
         '
-        Me.Button7.Location = New System.Drawing.Point(182, 117)
+        Me.Button7.Location = New System.Drawing.Point(192, 272)
         Me.Button7.Name = "Button7"
         Me.Button7.Size = New System.Drawing.Size(31, 26)
         Me.Button7.TabIndex = 9
@@ -181,7 +182,7 @@ Partial Class W_Control
         '
         'Button8
         '
-        Me.Button8.Location = New System.Drawing.Point(6, 275)
+        Me.Button8.Location = New System.Drawing.Point(6, 269)
         Me.Button8.Name = "Button8"
         Me.Button8.Size = New System.Drawing.Size(187, 26)
         Me.Button8.TabIndex = 10
@@ -191,6 +192,7 @@ Partial Class W_Control
         'GroupBox1
         '
         Me.GroupBox1.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox1.Controls.Add(Me.Button11)
         Me.GroupBox1.Controls.Add(Me.Button10)
         Me.GroupBox1.Controls.Add(Me.Button7)
         Me.GroupBox1.Controls.Add(Me.savebutton)
@@ -214,10 +216,11 @@ Partial Class W_Control
         Me.savebutton.TabIndex = 10
         Me.savebutton.Text = "&Save"
         Me.savebutton.UseVisualStyleBackColor = True
+        Me.savebutton.Visible = False
         '
         'Button9
         '
-        Me.Button9.Location = New System.Drawing.Point(6, 298)
+        Me.Button9.Location = New System.Drawing.Point(6, 292)
         Me.Button9.Name = "Button9"
         Me.Button9.Size = New System.Drawing.Size(187, 26)
         Me.Button9.TabIndex = 10
@@ -226,12 +229,22 @@ Partial Class W_Control
         '
         'Button10
         '
-        Me.Button10.Location = New System.Drawing.Point(6, 227)
+        Me.Button10.Location = New System.Drawing.Point(6, 221)
         Me.Button10.Name = "Button10"
-        Me.Button10.Size = New System.Drawing.Size(187, 26)
+        Me.Button10.Size = New System.Drawing.Size(70, 26)
         Me.Button10.TabIndex = 11
         Me.Button10.Text = "&Load this"
         Me.Button10.UseVisualStyleBackColor = True
+        '
+        'Button11
+        '
+        Me.Button11.Font = New System.Drawing.Font("Calibri", 7.25!)
+        Me.Button11.Location = New System.Drawing.Point(77, 221)
+        Me.Button11.Name = "Button11"
+        Me.Button11.Size = New System.Drawing.Size(116, 26)
+        Me.Button11.TabIndex = 12
+        Me.Button11.Text = "Load this && TimeMachine"
+        Me.Button11.UseVisualStyleBackColor = True
         '
         'W_Control
         '
@@ -273,4 +286,5 @@ Partial Class W_Control
     Friend WithEvents savebutton As System.Windows.Forms.Button
     Friend WithEvents Button9 As System.Windows.Forms.Button
     Friend WithEvents Button10 As System.Windows.Forms.Button
+    Friend WithEvents Button11 As System.Windows.Forms.Button
 End Class

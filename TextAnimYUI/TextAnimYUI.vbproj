@@ -89,6 +89,8 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="animations_declaration.vb" />
+    <Compile Include="YUIAutoCook_TimeMachine.vb" />
     <Compile Include="Form1.vb">
       <SubType>Form</SubType>
     </Compile>

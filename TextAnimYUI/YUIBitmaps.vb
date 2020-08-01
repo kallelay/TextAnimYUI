@@ -13,13 +13,18 @@ Module YUIBitmaps
 
             If IO.File.Exists(WorldPath & WorldName & Chr(65 + i) & ".bmp") Then
 
-                videoDriver.GetTexture(WorldPath & WorldName & Chr(65 + i) & ".bmp")
+                Try
+                    videoDriver.GetTexture(WorldPath & WorldName & Chr(65 + i) & ".bmp")
+
+                    videoDriver2.GetTexture(WorldPath & WorldName & Chr(65 + i) & ".bmp")
+                    Dim tx = videoDriver2.GetTexture(WorldPath & WorldName & Chr(65 + i) & ".bmp")
+                    Debugx("Texture " & Chr(97 + i) & ": OK")
+                Catch ex As Exception
+                    Debugx("Texture " & Chr(97 + i) & ": [err]  " & ex.Message)
+                End Try
 
 
 
-
-                videoDriver2.GetTexture(WorldPath & WorldName & Chr(65 + i) & ".bmp")
-                Dim tx = videoDriver2.GetTexture(WorldPath & WorldName & Chr(65 + i) & ".bmp")
 
 
 

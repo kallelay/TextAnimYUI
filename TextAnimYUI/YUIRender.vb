@@ -111,7 +111,7 @@ Module YUIRender
                 'Selectors
                 If Not Loading Then MapSelectors()
 
-                'draw everything
+                'draw everything    
                 videoDriver.EndScene()
                 videoDriver2.EndScene()
             Loop
