@@ -572,6 +572,16 @@ Public Class Form1
 
     Dim curFrameIdxInPlace = 0
     Sub Basculate(ByVal TargetPanel As Panel) 'for saving and images and etc
+
+
+        pad_1.Hide()
+        pad_2.Hide()
+        pad_3.Hide()
+        pad_4.Hide()
+
+
+
+
         If TargetPanel Is Panel12 Then curFrameIdxInPlace = 0 _
         Else If TargetPanel Is Panel13 Then curFrameIdxInPlace = 1 _
         Else If TargetPanel Is Panel14 Then curFrameIdxInPlace = 2 _
@@ -580,11 +590,15 @@ Public Class Form1
         Application.DoEvents()
         SaveFrame(CurrentFrame)
 
-        Dim step_! = (TargetPanel.Left - Label2.Left) / Math.Abs(TargetPanel.Left - Label2.Left + 0.01)
-        For i = 0 To Math.Abs(Label2.Left - TargetPanel.Left) Step 3
-            Application.DoEvents()
-            Label2.Left += step_ * 5
-        Next
+
+
+
+
+        'Dim step_! = (TargetPanel.Left - Label2.Left) / Math.Abs(TargetPanel.Left - Label2.Left + 0.01)
+        'For i = 0 To Math.Abs(Label2.Left - TargetPanel.Left) Step 3
+        ' Application.DoEvents()
+        ' Label2.Left += step_ * 5
+        ' Next
     End Sub
     Enum Dirtype
         right_
@@ -657,6 +671,10 @@ Public Class Form1
 
         End If
 
+
+        'Highlight me...
+        pad_1.Show()
+
     End Sub
 
     
@@ -675,6 +693,11 @@ Public Class Form1
             loadCurrentFrameDataIntoPopUpWindow(firstFrameInRow + 1)
         End If
 
+
+
+        'Highlight me...
+        pad_2.Show()
+
     End Sub
     Private Sub Panel14_Click(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Panel14.MouseDown
         If Panel14.Enabled = False Then Exit Sub
@@ -690,6 +713,11 @@ Public Class Form1
             loadCurrentFrameDataIntoPopUpWindow(firstFrameInRow + 2)
         End If
 
+
+
+        'Highlight me...
+        pad_3.Show()
+
     End Sub
     Private Sub Panel15_Click(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Panel15.MouseDown
         If Panel15.Enabled = False Then Exit Sub
@@ -704,6 +732,11 @@ Public Class Form1
             Panel18.Location = Panel4.Location + Panel15.Location + New Point(-120, -80)
             loadCurrentFrameDataIntoPopUpWindow(firstFrameInRow + 3)
         End If
+
+
+
+        'Highlight me...
+        pad_4.Show()
     End Sub
 
 

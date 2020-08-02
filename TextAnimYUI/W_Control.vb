@@ -94,7 +94,8 @@
             ListBox1.Items.Add("[" & j & "] Animation (" & j & ")")
         Next
 
-        savebutton.PerformClick()
+        'savebutton.PerformClick()
+        SaveWorld()
     End Sub
 
     Private Sub Button6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button6.Click
@@ -107,7 +108,8 @@
         ListBox1.Items(ListBox1.SelectedIndex) = ListBox1.Items(ListBox1.SelectedIndex - 1)
         ListBox1.Items(ListBox1.SelectedIndex - 1) = myN
 
-        savebutton.PerformClick()
+        'savebutton.PerformClick()
+        SaveWorld()
     End Sub
 
     Private Sub Button7_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button7.Click
@@ -120,10 +122,10 @@
         ListBox1.Items(ListBox1.SelectedIndex) = ListBox1.Items(ListBox1.SelectedIndex + 1)
         ListBox1.Items(ListBox1.SelectedIndex + 1) = myN
 
-        savebutton.PerformClick()
+        '   savebutton.PerformClick()
+        SaveWorld()
     End Sub
-
-    Private Sub savebutton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles savebutton.Click
+    Sub SaveWorld()
         Try
             If IO.File.Exists(Main.TextBox1.Text & "_backup") = False Then
                 IO.File.Copy(Main.TextBox1.Text, Main.TextBox1.Text & "_backup")
@@ -140,6 +142,9 @@
         'refresh
         Debugx("Refreshing input")
         StartThread()
+    End Sub
+    Private Sub savebutton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles savebutton.Click
+        SaveWorld()
 
     End Sub
 
@@ -157,7 +162,11 @@
         End If
         CurrentWorld.AllFrames(ListBox1.SelectedIndex) = Frames
 
-        savebutton.PerformClick()
+        '   savebutton.PerformClick()
+        '   StartThread() 'reset
+        SaveWorld()
+
+
     End Sub
 
     Private Sub Button9_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button9.Click
@@ -167,7 +176,9 @@
             Exit Sub
         End If
         CurrentWorld.AllFrames.Add(Frames)
-        savebutton.PerformClick()
+        SaveWorld()
+
+        '  StartThread() 'reset
     End Sub
 
     Private Sub Button10_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button10.Click

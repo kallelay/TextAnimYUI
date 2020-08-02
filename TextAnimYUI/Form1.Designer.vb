@@ -44,7 +44,6 @@ Partial Class Form1
         Me.Label17 = New System.Windows.Forms.Label
         Me.Label16 = New System.Windows.Forms.Label
         Me.Label15 = New System.Windows.Forms.Label
-        Me.Label2 = New System.Windows.Forms.Label
         Me.Panel15 = New System.Windows.Forms.Panel
         Me.Panel17 = New System.Windows.Forms.Panel
         Me.Panel14 = New System.Windows.Forms.Panel
@@ -105,6 +104,10 @@ Partial Class Form1
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.statuslbl = New System.Windows.Forms.Label
         Me.RadioButton1 = New System.Windows.Forms.RadioButton
+        Me.pad_2 = New System.Windows.Forms.Label
+        Me.pad_1 = New System.Windows.Forms.Label
+        Me.pad_3 = New System.Windows.Forms.Label
+        Me.pad_4 = New System.Windows.Forms.Label
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -216,6 +219,7 @@ Partial Class Form1
         Me.Button21.Name = "Button21"
         Me.Button21.Size = New System.Drawing.Size(38, 23)
         Me.Button21.TabIndex = 9
+        Me.ToolTip1.SetToolTip(Me.Button21, "Manage Animations in the Current World File")
         Me.Button21.UseVisualStyleBackColor = True
         '
         'Label7
@@ -252,6 +256,7 @@ Partial Class Form1
         Me.Button8.Name = "Button8"
         Me.Button8.Size = New System.Drawing.Size(35, 23)
         Me.Button8.TabIndex = 5
+        Me.ToolTip1.SetToolTip(Me.Button8, "Export to Re-Volt Toolbox")
         Me.Button8.UseVisualStyleBackColor = True
         '
         'Button7
@@ -266,6 +271,7 @@ Partial Class Form1
         Me.Button7.Name = "Button7"
         Me.Button7.Size = New System.Drawing.Size(35, 23)
         Me.Button7.TabIndex = 4
+        Me.ToolTip1.SetToolTip(Me.Button7, "Save Animation File")
         Me.Button7.UseVisualStyleBackColor = True
         '
         'Button6
@@ -280,6 +286,7 @@ Partial Class Form1
         Me.Button6.Name = "Button6"
         Me.Button6.Size = New System.Drawing.Size(35, 23)
         Me.Button6.TabIndex = 3
+        Me.ToolTip1.SetToolTip(Me.Button6, "Open/Load Animation File")
         Me.Button6.UseVisualStyleBackColor = True
         '
         'Button5
@@ -294,6 +301,7 @@ Partial Class Form1
         Me.Button5.Name = "Button5"
         Me.Button5.Size = New System.Drawing.Size(35, 23)
         Me.Button5.TabIndex = 2
+        Me.ToolTip1.SetToolTip(Me.Button5, "Stop Animation")
         Me.Button5.UseVisualStyleBackColor = True
         '
         'Button1
@@ -308,16 +316,20 @@ Partial Class Form1
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(38, 23)
         Me.Button1.TabIndex = 0
+        Me.ToolTip1.SetToolTip(Me.Button1, "Play Animation")
         Me.Button1.UseVisualStyleBackColor = True
         '
         'Panel4
         '
         Me.Panel4.BackgroundImage = Global.TextAnimYUI.My.Resources.Resources.back1
+        Me.Panel4.Controls.Add(Me.pad_4)
+        Me.Panel4.Controls.Add(Me.pad_3)
+        Me.Panel4.Controls.Add(Me.pad_1)
+        Me.Panel4.Controls.Add(Me.pad_2)
         Me.Panel4.Controls.Add(Me.Label18)
         Me.Panel4.Controls.Add(Me.Label17)
         Me.Panel4.Controls.Add(Me.Label16)
         Me.Panel4.Controls.Add(Me.Label15)
-        Me.Panel4.Controls.Add(Me.Label2)
         Me.Panel4.Controls.Add(Me.Panel15)
         Me.Panel4.Controls.Add(Me.Panel14)
         Me.Panel4.Controls.Add(Me.Panel13)
@@ -358,13 +370,6 @@ Partial Class Form1
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(151, 15)
         Me.Label15.TabIndex = 0
-        '
-        'Label2
-        '
-        Me.Label2.Location = New System.Drawing.Point(12, 112)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(152, 5)
-        Me.Label2.TabIndex = 3
         '
         'Panel15
         '
@@ -416,6 +421,7 @@ Partial Class Form1
         Me.Panel12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel12.Location = New System.Drawing.Point(9, 10)
         Me.Panel12.Name = "Panel12"
+        Me.Panel12.Padding = New System.Windows.Forms.Padding(5)
         Me.Panel12.Size = New System.Drawing.Size(155, 100)
         Me.Panel12.TabIndex = 0
         '
@@ -439,6 +445,7 @@ Partial Class Form1
         Me.Button10.Name = "Button10"
         Me.Button10.Size = New System.Drawing.Size(36, 39)
         Me.Button10.TabIndex = 1
+        Me.ToolTip1.SetToolTip(Me.Button10, "Remove current keyframe")
         Me.Button10.UseVisualStyleBackColor = False
         '
         'Button9
@@ -451,6 +458,7 @@ Partial Class Form1
         Me.Button9.Name = "Button9"
         Me.Button9.Size = New System.Drawing.Size(36, 39)
         Me.Button9.TabIndex = 0
+        Me.ToolTip1.SetToolTip(Me.Button9, "Add new keyframe")
         Me.Button9.UseVisualStyleBackColor = False
         '
         'Panel6
@@ -482,6 +490,7 @@ Partial Class Form1
         Me.ComboBox1.Name = "ComboBox1"
         Me.ComboBox1.Size = New System.Drawing.Size(65, 21)
         Me.ComboBox1.TabIndex = 11
+        Me.ToolTip1.SetToolTip(Me.ComboBox1, "Texture File")
         '
         'Panel16
         '
@@ -535,6 +544,7 @@ Partial Class Form1
         Me.ComboBox4.Name = "ComboBox4"
         Me.ComboBox4.Size = New System.Drawing.Size(79, 21)
         Me.ComboBox4.TabIndex = 23
+        Me.ToolTip1.SetToolTip(Me.ComboBox4, "Animation Transition")
         '
         'NumericUpDown1
         '
@@ -542,6 +552,7 @@ Partial Class Form1
         Me.NumericUpDown1.Name = "NumericUpDown1"
         Me.NumericUpDown1.Size = New System.Drawing.Size(57, 20)
         Me.NumericUpDown1.TabIndex = 22
+        Me.ToolTip1.SetToolTip(Me.NumericUpDown1, "Random Generator's Seed")
         '
         'TextBox6
         '
@@ -552,6 +563,7 @@ Partial Class Form1
         Me.TextBox6.Size = New System.Drawing.Size(45, 20)
         Me.TextBox6.TabIndex = 21
         Me.TextBox6.Text = "10"
+        Me.ToolTip1.SetToolTip(Me.TextBox6, "Maximum Shake displacement")
         '
         'ComboBox2
         '
@@ -562,6 +574,7 @@ Partial Class Form1
         Me.ComboBox2.Name = "ComboBox2"
         Me.ComboBox2.Size = New System.Drawing.Size(95, 21)
         Me.ComboBox2.TabIndex = 12
+        Me.ToolTip1.SetToolTip(Me.ComboBox2, "Animation Type")
         '
         'Label4
         '
@@ -614,6 +627,7 @@ Partial Class Form1
         Me.Button17.Size = New System.Drawing.Size(84, 21)
         Me.Button17.TabIndex = 19
         Me.Button17.Text = "exchange"
+        Me.ToolTip1.SetToolTip(Me.Button17, "exchange the place of 2 keyframes")
         Me.Button17.UseVisualStyleBackColor = True
         '
         'Button15
@@ -623,6 +637,7 @@ Partial Class Form1
         Me.Button15.Size = New System.Drawing.Size(77, 21)
         Me.Button15.TabIndex = 17
         Me.Button15.Text = "clone"
+        Me.ToolTip1.SetToolTip(Me.Button15, "Copy and track keyframe from previous keyframe")
         Me.Button15.UseVisualStyleBackColor = True
         '
         'TextBox3
@@ -633,6 +648,7 @@ Partial Class Form1
         Me.TextBox3.Size = New System.Drawing.Size(87, 20)
         Me.TextBox3.TabIndex = 18
         Me.TextBox3.Text = "16"
+        Me.ToolTip1.SetToolTip(Me.TextBox3, "(Total) Sub-frames ")
         '
         'Label9
         '
@@ -652,6 +668,7 @@ Partial Class Form1
         Me.Button14.Size = New System.Drawing.Size(83, 21)
         Me.Button14.TabIndex = 16
         Me.Button14.Text = "cook"
+        Me.ToolTip1.SetToolTip(Me.Button14, "Convert animation to static frames")
         Me.Button14.UseVisualStyleBackColor = True
         '
         'Button13
@@ -661,6 +678,7 @@ Partial Class Form1
         Me.Button13.Size = New System.Drawing.Size(81, 21)
         Me.Button13.TabIndex = 15
         Me.Button13.Text = "delete"
+        Me.ToolTip1.SetToolTip(Me.Button13, "Delete current frame")
         Me.Button13.UseVisualStyleBackColor = True
         '
         'Button12
@@ -670,6 +688,7 @@ Partial Class Form1
         Me.Button12.Size = New System.Drawing.Size(77, 21)
         Me.Button12.TabIndex = 14
         Me.Button12.Text = "reset (0,0)->(1,1)"
+        Me.ToolTip1.SetToolTip(Me.Button12, "reset (0,0)->(1,1)")
         Me.Button12.UseVisualStyleBackColor = True
         '
         'Button11
@@ -679,6 +698,7 @@ Partial Class Form1
         Me.Button11.Size = New System.Drawing.Size(83, 21)
         Me.Button11.TabIndex = 13
         Me.Button11.Text = "inherit once"
+        Me.ToolTip1.SetToolTip(Me.Button11, "Copy keyframe from previous keyframe")
         Me.Button11.UseVisualStyleBackColor = True
         '
         'Label5
@@ -699,6 +719,7 @@ Partial Class Form1
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(87, 20)
         Me.TextBox1.TabIndex = 2
+        Me.ToolTip1.SetToolTip(Me.TextBox1, "(Total) Duration of the animation")
         '
         'Label3
         '
@@ -818,6 +839,7 @@ Partial Class Form1
         Me.RadioButton2.Name = "RadioButton2"
         Me.RadioButton2.Size = New System.Drawing.Size(33, 34)
         Me.RadioButton2.TabIndex = 21
+        Me.ToolTip1.SetToolTip(Me.RadioButton2, "Rotate")
         Me.RadioButton2.UseVisualStyleBackColor = False
         '
         'RadioButton3
@@ -831,6 +853,7 @@ Partial Class Form1
         Me.RadioButton3.Name = "RadioButton3"
         Me.RadioButton3.Size = New System.Drawing.Size(33, 34)
         Me.RadioButton3.TabIndex = 22
+        Me.ToolTip1.SetToolTip(Me.RadioButton3, "Transform (Rectangle Tool)")
         Me.RadioButton3.UseVisualStyleBackColor = False
         '
         'RadioButton4
@@ -846,6 +869,7 @@ Partial Class Form1
         Me.RadioButton4.Size = New System.Drawing.Size(33, 34)
         Me.RadioButton4.TabIndex = 23
         Me.RadioButton4.TabStop = True
+        Me.ToolTip1.SetToolTip(Me.RadioButton4, "Vertex Tool")
         Me.RadioButton4.UseVisualStyleBackColor = False
         '
         'TimerForAnim
@@ -906,6 +930,7 @@ Partial Class Form1
         Me.Button18.Name = "Button18"
         Me.Button18.Size = New System.Drawing.Size(29, 32)
         Me.Button18.TabIndex = 25
+        Me.ToolTip1.SetToolTip(Me.Button18, "Mirror (H)")
         Me.Button18.UseVisualStyleBackColor = True
         '
         'Button19
@@ -916,6 +941,7 @@ Partial Class Form1
         Me.Button19.Name = "Button19"
         Me.Button19.Size = New System.Drawing.Size(29, 32)
         Me.Button19.TabIndex = 26
+        Me.ToolTip1.SetToolTip(Me.Button19, "Mirror (V)")
         Me.Button19.UseVisualStyleBackColor = True
         '
         'TextBox4
@@ -974,7 +1000,47 @@ Partial Class Form1
         Me.RadioButton1.Name = "RadioButton1"
         Me.RadioButton1.Size = New System.Drawing.Size(33, 34)
         Me.RadioButton1.TabIndex = 29
+        Me.ToolTip1.SetToolTip(Me.RadioButton1, "Scale")
         Me.RadioButton1.UseVisualStyleBackColor = False
+        '
+        'pad_2
+        '
+        Me.pad_2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.pad_2.Location = New System.Drawing.Point(170, 113)
+        Me.pad_2.Name = "pad_2"
+        Me.pad_2.Size = New System.Drawing.Size(155, 4)
+        Me.pad_2.TabIndex = 0
+        Me.pad_2.Text = "m"
+        Me.pad_2.Visible = False
+        '
+        'pad_1
+        '
+        Me.pad_1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.pad_1.Location = New System.Drawing.Point(8, 113)
+        Me.pad_1.Name = "pad_1"
+        Me.pad_1.Size = New System.Drawing.Size(155, 4)
+        Me.pad_1.TabIndex = 0
+        Me.pad_1.Text = "m"
+        '
+        'pad_3
+        '
+        Me.pad_3.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.pad_3.Location = New System.Drawing.Point(329, 113)
+        Me.pad_3.Name = "pad_3"
+        Me.pad_3.Size = New System.Drawing.Size(155, 4)
+        Me.pad_3.TabIndex = 0
+        Me.pad_3.Text = "m"
+        Me.pad_3.Visible = False
+        '
+        'pad_4
+        '
+        Me.pad_4.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.pad_4.Location = New System.Drawing.Point(491, 113)
+        Me.pad_4.Name = "pad_4"
+        Me.pad_4.Size = New System.Drawing.Size(155, 4)
+        Me.pad_4.TabIndex = 0
+        Me.pad_4.Text = "m"
+        Me.pad_4.Visible = False
         '
         'Form1
         '
@@ -1055,7 +1121,6 @@ Partial Class Form1
     Friend WithEvents Panel16 As System.Windows.Forms.Panel
     Friend WithEvents Panel17 As System.Windows.Forms.Panel
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Timer1 As System.Windows.Forms.Timer
     Friend WithEvents Panel18 As System.Windows.Forms.Panel
     Friend WithEvents Label3 As System.Windows.Forms.Label
@@ -1112,5 +1177,9 @@ Partial Class Form1
     Friend WithEvents ComboBox4 As System.Windows.Forms.ComboBox
     Friend WithEvents statuslbl As System.Windows.Forms.Label
     Friend WithEvents RadioButton1 As System.Windows.Forms.RadioButton
+    Friend WithEvents pad_3 As System.Windows.Forms.Label
+    Friend WithEvents pad_1 As System.Windows.Forms.Label
+    Friend WithEvents pad_2 As System.Windows.Forms.Label
+    Friend WithEvents pad_4 As System.Windows.Forms.Label
 
 End Class
