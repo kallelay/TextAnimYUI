@@ -27,6 +27,10 @@ Module YUIRender
         videoDriver = device.VideoDriver
         ScnMgr = device.SceneManager
 
+        'Write something
+        Debugx("Irrlicht Device " & device.CPVersion & ", Videomode: " & device.DesktopVideoMode.Resolution.dotNETSize.ToString & "x" & device.DesktopVideoMode.Depth & "-bits")
+
+
         'Mesh, Camera  of main
         Plane = ScnMgr.AddHillPlaneMesh("plane", New Dimension2Df(1, 1), New Dimension2D(1, 1), 0, New Dimension2D(1, 1), New Dimension2Df(1, 1))
         PScn = ScnMgr.AddAnimatedMeshSceneNode(Plane)
@@ -35,7 +39,7 @@ Module YUIRender
 
         '----------------------------------------------------------------------------------------
         'UV editor (hardware accelerated, better!)
-        device2 = New IrrlichtDevice(DriverType.Direct3D8, New Dimension2D(256, 256), 32, False, True, False, False, Form1.Panel16.Handle)
+        device2 = New IrrlichtDevice(DriverType.Direct3D9, New Dimension2D(256, 256), 32, False, True, False, False, Form1.Panel16.Handle)
 
         videoDriver2 = device2.VideoDriver
         ScnMgr2 = device2.SceneManager
@@ -99,21 +103,31 @@ Module YUIRender
             Do Until (device.Run Or device2.Run) = False
 
 
-                videoDriver.BeginScene(True, True, Color.From(255, 230, 230, 230))
-                videoDriver2.BeginScene(True, True, Color.From(255, 230, 230, 230))
+                If Form1.FORM1_LOST_FOCUS And Form2.FORM2_LOST_FOCUS And W_Control.FORM_W_LOST_FOCUS And SelectPolies.FORM_SPOLIES_LOST_FOCUS Then
+                    Form1.Label1.Text = "FPS: Halt"
+                    Threading.Thread.Sleep(10)
 
-                Form1.Label1.Text = "FPS: " & videoDriver.FPS
 
 
-                ScnMgr.DrawAll()
-                ScnMgr2.DrawAll()
+                Else
 
-                'Selectors
-                If Not Loading Then MapSelectors()
+                    videoDriver.BeginScene(True, True, Color.From(255, 230, 230, 230))
+                    videoDriver2.BeginScene(True, True, Color.From(255, 230, 230, 230))
 
-                'draw everything    
-                videoDriver.EndScene()
-                videoDriver2.EndScene()
+                    Form1.Label1.Text = "FPS: " & videoDriver.FPS
+
+
+                    ScnMgr.DrawAll()
+                    ScnMgr2.DrawAll()
+
+                    'Selectors
+                    If Not Loading Then MapSelectors()
+
+                    'draw everything    
+                    videoDriver.EndScene()
+                    videoDriver2.EndScene()
+                End If
+
             Loop
 
         Catch ex As Exception

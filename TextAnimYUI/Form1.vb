@@ -2,6 +2,8 @@
 
 Public Class Form1
     Inherits Form
+
+    Public FORM1_LOST_FOCUS As Boolean = True
    
 
     <DllImport("user32.dll")> _
@@ -36,6 +38,10 @@ Public Class Form1
 
     End Sub
     Dim InitPos As Point
+
+    Private Sub Panel1_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles Panel1.LostFocus
+
+    End Sub
     Private Sub Panel1_MouseMove(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Panel1.MouseMove
         If MouseButtons = Windows.Forms.MouseButtons.Left Then
             Me.Location += Cursor.Position - InitPos
@@ -171,6 +177,10 @@ Public Class Form1
 
     End Sub
 
+    Private Sub Form1_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Activated
+        FORM1_LOST_FOCUS = False
+    End Sub
+
     Private Sub Form1_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Me.KeyDown, Label1.KeyDown, Button2.KeyDown, Button9.KeyDown, Button10.KeyDown, _
     Panel6.KeyDown, Panel7.KeyDown, Panel12.KeyDown, Panel13.KeyDown, Panel14.KeyDown, Panel15.KeyDown
         'Me.ActiveControl = sender
@@ -201,8 +211,8 @@ Public Class Form1
 
     End Sub
 
-    Private Sub Form1_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.LostFocus
-
+    Private Sub Form1_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Deactivate
+        FORM1_LOST_FOCUS = True
     End Sub
 
     Private Sub Form1_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
@@ -496,7 +506,43 @@ Public Class Form1
                     UpdateUV()
 
                 End If
-               
+
+
+
+
+
+            Case EditModes.Scale_
+                '-------------------------------- Scale
+
+                If MouseButtons = Windows.Forms.MouseButtons.None And Not Moving Then
+                    StaticMousePos = New IrrlichtNETCP.Vector2D((MousePosition.X - Me.Location.X - Panel16.Location.X) / Panel16.Width, _
+                                                            (MousePosition.Y - Me.Location.Y - Panel16.Location.Y) / Panel16.Height)
+
+
+
+
+                End If
+
+
+                If MouseButtons <> Windows.Forms.MouseButtons.None Then
+                    ' Mat.CreateScaleMatrix((1 - DeltaMousePos.X / 100))
+                    'Mat.CreateRotationMatrix(DeltaMousePos.X)
+                    Pivot = New IrrlichtNETCP.Vector2D
+                    For i = 0 To 3
+                        Pivot += Selectors(i) / 4
+                    Next
+
+                    For i = 0 To 3
+                        'Selectors(i) = ((1 - DeltaMousePos.Length * Math.Min(Math.Sign(DeltaMousePos.X), Math.Sign(DeltaMousePos.Y)) / 10) * (Selectors(i) - Pivot)) + Pivot
+                        Selectors(i) = ((1 - DeltaMousePos.X) * (Selectors(i) - Pivot)) + Pivot
+                        'Debugx(Selectors(i).X & "x" & Selectors(i).Y)
+                    Next
+                    'Frames(CurrentFrame).Rotation += DeltaMousePos.X
+
+
+                    UpdateUV()
+
+                End If
 
         End Select
 
@@ -579,7 +625,22 @@ Public Class Form1
                 Next
         End Select
     End Sub
-    Private Sub Panel12_Click(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Panel12.MouseDown
+
+    Sub loadCurrentFrameDataIntoPopUpWindow(ByVal frameidx%)
+        TextBox1.Text = Frames(frameidx%).Delay
+        ComboBox2.SelectedIndex = Frames(frameidx%).Type
+        ComboBox4.SelectedIndex = Frames(frameidx%).AnimationSpeed
+        TextBox3.Text = Frames(frameidx%).ImageCount
+        TextBox6.Text = Frames(frameidx%).NoiseLevel
+        If Frames(frameidx%).Type = AnimType.Static_ Then
+            TextBox3.Enabled = False
+        Else
+            TextBox3.Enabled = True
+        End If
+        Timer3.Start()
+        Panel18.Show()
+    End Sub
+    Public Sub Panel12_Click(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Panel12.MouseDown
         If Panel12.Enabled = False Then Exit Sub
         Me.ActiveControl = sender
         If e.Button <> Windows.Forms.MouseButtons.None Then
@@ -592,16 +653,8 @@ Public Class Form1
         If e.Button = Windows.Forms.MouseButtons.Right Then
 
             Panel18.Location = Panel4.Location + Panel12.Location + New Point(120, -80)
-            TextBox1.Text = Frames(firstFrameInRow).Delay
-            ComboBox2.SelectedIndex = Frames(firstFrameInRow).Type
-            If Frames(firstFrameInRow).Type = AnimType.Static_ Then
-                TextBox3.Enabled = False
-            Else
-                TextBox3.Enabled = True
-            End If
-            Timer3.Start()
+            loadCurrentFrameDataIntoPopUpWindow(firstFrameInRow + 0)
 
-            Panel18.Show()
         End If
 
     End Sub
@@ -619,16 +672,7 @@ Public Class Form1
         End If
         If e.Button = Windows.Forms.MouseButtons.Right Then
             Panel18.Location = Panel4.Location + Panel13.Location + New Point(120, -80)
-            TextBox1.Text = Frames(firstFrameInRow + 1).Delay
-            ComboBox2.SelectedIndex = Frames(firstFrameInRow + 1).Type
-            If Frames(firstFrameInRow + 1).Type = AnimType.Static_ Then
-                TextBox3.Enabled = False
-            Else
-                TextBox3.Enabled = True
-            End If
-            Timer3.Start()
-
-            Panel18.Show()
+            loadCurrentFrameDataIntoPopUpWindow(firstFrameInRow + 1)
         End If
 
     End Sub
@@ -643,16 +687,7 @@ Public Class Form1
         End If
         If e.Button = Windows.Forms.MouseButtons.Right Then
             Panel18.Location = Panel4.Location + Panel14.Location + New Point(120, -80)
-            TextBox1.Text = Frames(firstFrameInRow + 2).Delay
-            ComboBox2.SelectedIndex = Frames(firstFrameInRow + 2).Type
-            If Frames(firstFrameInRow + 2).Type = AnimType.Static_ Then
-                TextBox3.Enabled = False
-            Else
-                TextBox3.Enabled = True
-            End If
-            Timer3.Start()
-
-            Panel18.Show()
+            loadCurrentFrameDataIntoPopUpWindow(firstFrameInRow + 2)
         End If
 
     End Sub
@@ -667,16 +702,7 @@ Public Class Form1
 
         If e.Button = Windows.Forms.MouseButtons.Right Then
             Panel18.Location = Panel4.Location + Panel15.Location + New Point(-120, -80)
-            TextBox1.Text = Frames(firstFrameInRow + 3).Delay
-            ComboBox2.SelectedIndex = Frames(firstFrameInRow + 3).Type
-            If Frames(firstFrameInRow + 3).Type = AnimType.Static_ Then
-                TextBox3.Enabled = False
-            Else
-                TextBox3.Enabled = True
-            End If
-            Timer3.Start()
-
-            Panel18.Show()
+            loadCurrentFrameDataIntoPopUpWindow(firstFrameInRow + 3)
         End If
     End Sub
 
@@ -744,16 +770,35 @@ Public Class Form1
         EnableDisablePanels()
 
     End Sub
+    Dim perfCounterAll As New System.Diagnostics.PerformanceCounter("Process", "% Processor Time", "_Total")
+    Dim perfCounterSelbst As New System.Diagnostics.PerformanceCounter("Process", "% Processor Time", Process.GetCurrentProcess.ProcessName)
 
+    Dim cnterX As Integer = 0
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
         'Hmmm... I have made this a long time ago, so I think this is the main synchronizer
         'To put it simple, this shit code uses a time to start the work, to relieve a bit CPU usage
         'And a lot of repetition too, TOO MUCH
         'Thank you....
 
-        Panel9.Visible = State = EditModes.Rotate_
 
-        Label7.Text = "KEYFRAME: " & Strings.Format(CurrentFrame, "00") & "/" & Frames.Count
+
+        cnterX += 1
+
+        If cnterX Mod 4 = 0 Then
+            statuslbl.Text = Label1.Text & vbNewLine & _
+            "CPU: " & Strings.Format(perfCounterSelbst.NextValue() / Environment.ProcessorCount, "0.00") & "%" & vbNewLine & _
+            "Mem: " & Strings.Format(Process.GetCurrentProcess.WorkingSet64 / 1024 / 1024, "0.00") & "MB [Paged: " & Strings.Format(Process.GetCurrentProcess.PagedMemorySize64 / 1024 / 1024, "0.00") & "MB]" & vbNewLine & _
+            "Up Time: " & Math.Round(Process.GetCurrentProcess.TotalProcessorTime.TotalMinutes) & "min" & vbNewLine & _
+            "VER: " & Main.TEXYUI_VERSION
+
+        End If
+
+
+        Panel9.Visible = State = EditModes.Rotate_
+        Label7.Text = "KEYFRAME: " & Strings.Format(CurrentFrame, "00") & "/" & Strings.Format(Frames.Count - 1, "00")
+
+
+
         Try
             Panel12.BackgroundImage = SaveUVintoPICTURE(firstFrameInRow)
 
@@ -905,7 +950,7 @@ cleanupbadformattingorfinish:
     Enum ImportMode
         WConsole
         Worldfile
-        ' BlenderTexAnim
+        BlenderTexAnim
         YUI
     End Enum
     Dim imod As ImportMode = ImportMode.YUI
@@ -947,6 +992,10 @@ cleanupbadformattingorfinish:
             If LCase(Strings.Right(fname, 9)) = "framelist" Then
                 imod = ImportMode.WConsole
             End If
+
+            If LCase(Strings.Right(fname, 7)) = ".ta.csv" Then
+                imod = ImportMode.BlenderTexAnim
+            End If
         Else
             Exit Sub
         End If
@@ -958,9 +1007,24 @@ cleanupbadformattingorfinish:
             Case ImportMode.YUI
                 LoadYUIfile(fname)
             Case ImportMode.Worldfile
-                CurrentWorld = New WORLD(fname)
+                Form2.USE_TEMPORARY_WORLD = True
+                TempWorld = New WORLD(fname)
                 Form2.ListBox1.Items.Clear()
-                For j = 0 To CurrentWorld.AllFrames.Count - 1
+                For j = 0 To TempWorld.AllFrames.Count - 1
+                    Form2.ListBox1.Items.Add("Animation (" & j & ")")
+                Next
+                Form2.Location = New Point(10, 24) + Location
+                Form2.Show()
+                Enabled = False
+                Form2.TopMost = True
+                'Me.Controls.Find("Panelx", True)(0).BringToFront()
+
+
+            Case ImportMode.BlenderTexAnim
+                Form2.USE_TEMPORARY_WORLD = True
+                YUI_blender_texanimcomp.read_ta_csv_as_world(fname) 'use a temporary world
+                Form2.ListBox1.Items.Clear()
+                For j = 0 To TempWorld.AllFrames.Count - 1
                     Form2.ListBox1.Items.Add("Animation (" & j & ")")
                 Next
                 Form2.Location = New Point(10, 24) + Location
@@ -1025,8 +1089,13 @@ cleanupbadformattingorfinish:
     Public LatestFrame = 0
     Public mStep = 0
     Dim random As New Random(0)
-    Dim linDisp!
+    Dim linDisp!, plinDisp!
     Private Sub Timer2_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer2.Tick
+
+        If Frames.Count = 0 Then
+            Button5.PerformClick() 'Stop
+        End If
+
 
         If Frames(0).Delay = 0 Then 'Never should it be here
             Debugx("Frames(" & LatestFrame & ").time = 0")
@@ -1038,10 +1107,6 @@ cleanupbadformattingorfinish:
 
 
         Label6.Text = "|> Playing (" & LatestFrame & ")"
-
-        If Frames.Count = 0 Then
-            Button5.PerformClick() 'Stop
-        End If
 
 
         'different previews :-/
@@ -1065,37 +1130,57 @@ cleanupbadformattingorfinish:
                 LatestFrame += 1
                 If LatestFrame >= Frames.Count Then LatestFrame = 0
 
-            Case AnimType.Linear_ 'LINEAR
-                If Frames.Count <= LatestFrame + 1 Then
-                    Timer2.Stop()
-                    MsgBox("Frames(" & LatestFrame + 1 & ") doesn't exist which is required for linear animation")
-                    Exit Sub
-                End If
-                Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(0).TCoords = Frames(LatestFrame).UV(3) + (Frames(LatestFrame + 1).UV(3) - Frames(LatestFrame).UV(3)) * mStep / Frames(LatestFrame).ImageCount
-                Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(1).TCoords = Frames(LatestFrame).UV(0) + (Frames(LatestFrame + 1).UV(0) - Frames(LatestFrame).UV(0)) * mStep / Frames(LatestFrame).ImageCount
-                Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(2).TCoords = Frames(LatestFrame).UV(2) + (Frames(LatestFrame + 1).UV(2) - Frames(LatestFrame).UV(2)) * mStep / Frames(LatestFrame).ImageCount
-                Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(3).TCoords = Frames(LatestFrame).UV(1) + (Frames(LatestFrame + 1).UV(1) - Frames(LatestFrame).UV(1)) * mStep / Frames(LatestFrame).ImageCount
-
-                PScn.GetMaterial(0).Texture1 = videoDriver.GetTexture(WorldPath & WorldName & Chr(65 + Frames(LatestFrame).Tex) & ".bmp")
-
-                If Frames(LatestFrame).Delay = 0 Then
-                    MsgBox("Frames(" & LatestFrame & ").time = 0", MsgBoxStyle.Critical, "Error")
-                    Timer2.Stop()
-                    Exit Sub
-                End If
 
 
-                Timer2.Interval = Math.Max(1, Frames(LatestFrame).Delay / Frames(LatestFrame).ImageCount)
-                mStep += 1
-                If mStep >= Frames(LatestFrame).ImageCount Then
-                    LatestFrame += 1
-                    mStep = 0
-                    If LatestFrame >= Frames.Count Then LatestFrame = 0
-                End If
+
+                '    Case AnimType.Linear_ 'LINEAR
+                '       If Frames.Count <= LatestFrame + 1 Then
+                'Timer2.Stop()
+                'MsgBox("Frames(" & LatestFrame + 1 & ") doesn't exist which is required for linear animation")
+                'Exit Sub
+                'End If
+                'Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(0).TCoords = Frames(LatestFrame).UV(3) + (Frames(LatestFrame + 1).UV(3) - Frames(LatestFrame).UV(3)) * mStep / Frames(LatestFrame).ImageCount
+                'Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(1).TCoords = Frames(LatestFrame).UV(0) + (Frames(LatestFrame + 1).UV(0) - Frames(LatestFrame).UV(0)) * mStep / Frames(LatestFrame).ImageCount
+                'Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(2).TCoords = Frames(LatestFrame).UV(2) + (Frames(LatestFrame + 1).UV(2) - Frames(LatestFrame).UV(2)) * mStep / Frames(LatestFrame).ImageCount
+                'Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(3).TCoords = Frames(LatestFrame).UV(1) + (Frames(LatestFrame + 1).UV(1) - Frames(LatestFrame).UV(1)) * mStep / Frames(LatestFrame).ImageCount
+
+                'PScn.GetMaterial(0).Texture1 = videoDriver.GetTexture(WorldPath & WorldName & Chr(65 + Frames(LatestFrame).Tex) & ".bmp")
+
+                'If Frames(LatestFrame).Delay = 0 Then
+                'MsgBox("Frames(" & LatestFrame & ").time = 0", MsgBoxStyle.Critical, "Error")
+                'Timer2.Stop()
+                'Exit Sub
+                'End If
+
+
+                'Timer2.Interval = Math.Max(1, Frames(LatestFrame).Delay / Frames(LatestFrame).ImageCount)
+                'mStep += 1
+                'If mStep >= Frames(LatestFrame).ImageCount Then
+                ' LatestFrame += 1
+                ' mStep = 0
+                ' If LatestFrame >= Frames.Count Then LatestFrame = 0
+                ' End If
 
 
 
             Case AnimType.Rotation_  'ROTATION
+
+                Select Case Frames(LatestFrame).AnimationSpeed
+                    Case AnimMethod.Linear_
+                        linDisp! = Animation_Linear(mStep, Frames(LatestFrame).ImageCount)
+                    Case AnimMethod.AccIn_
+                        linDisp = Animation_AccInSqrt(mStep, Frames(LatestFrame).ImageCount)
+                    Case AnimMethod.EaseIn_
+                        linDisp = Animation_EaseInQuad(mStep, Frames(LatestFrame).ImageCount)
+                    Case AnimMethod.EaseInOut_
+                        linDisp = Animation_EaseInOutArctanAsSigmoid(mStep, Frames(LatestFrame).ImageCount)
+                    Case AnimMethod.Smooth_
+                        linDisp = Animation_SmoothCos(mStep, Frames(LatestFrame).ImageCount)
+                    Case AnimMethod.SmthBmerng_
+                        linDisp = Animation_SmoothCosBoomerang(mStep, Frames(LatestFrame).ImageCount)
+                End Select
+
+
 
                 If Frames.Count <= LatestFrame + 1 Then
                     Timer2.Stop()
@@ -1115,8 +1200,9 @@ cleanupbadformattingorfinish:
                 ' Dim Theta = Math.Acos(u.X * v.X + v.Y * u.Y) / (Math.Sqrt(u.X ^ 2 + u.Y ^ 2) * Math.Sqrt(v.X ^ 2 + v.Y ^ 2))
 
 
-                Mat.CreateRotationMatrix((Frames(LatestFrame + 1).Rotation - Frames(LatestFrame).Rotation) / Frames(LatestFrame).ImageCount)
-
+                ' Mat.CreateRotationMatrix((Frames(LatestFrame + 1).Rotation - Frames(LatestFrame).Rotation) / Frames(LatestFrame).ImageCount)
+                Mat.CreateRotationMatrix((Frames(LatestFrame + 1).Rotation - Frames(LatestFrame).Rotation) * (linDisp - plinDisp))
+                plinDisp = linDisp
 
 
                 Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(0).TCoords = Mat * (Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(0).TCoords - PivotU) + PivotU
@@ -1144,7 +1230,7 @@ cleanupbadformattingorfinish:
 
 
             Case AnimType.Grid_ 'Grid
-                'TODO: Grid 2
+
                 '3 0 2 1'
 
                 '3 2 
@@ -1232,35 +1318,22 @@ cleanupbadformattingorfinish:
 
                 ' ---------------------------------- Linear w/ wo/ Smooth (In/Out/Inout)-----------------------------------------------------------------'
             Case AnimType.Linear_
-                linDisp! = Animation_Linear(mStep, Frames(LatestFrame).ImageCount)
-                GoTo linear_movements
 
-            Case AnimType.LSmooth_
-                linDisp = Animation_SmoothCos(mStep, Frames(LatestFrame).ImageCount)
-                GoTo linear_movements
+                Select Case Frames(LatestFrame).AnimationSpeed
+                    Case AnimMethod.Linear_
+                        linDisp! = Animation_Linear(mStep, Frames(LatestFrame).ImageCount)
+                    Case AnimMethod.AccIn_
+                        linDisp = Animation_AccInSqrt(mStep, Frames(LatestFrame).ImageCount)
+                    Case AnimMethod.EaseIn_
+                        linDisp = Animation_EaseInQuad(mStep, Frames(LatestFrame).ImageCount)
+                    Case AnimMethod.EaseInOut_
+                        linDisp = Animation_EaseInOutArctanAsSigmoid(mStep, Frames(LatestFrame).ImageCount)
+                    Case AnimMethod.Smooth_
+                        linDisp = Animation_SmoothCos(mStep, Frames(LatestFrame).ImageCount)
+                    Case AnimMethod.SmthBmerng_
+                        linDisp = Animation_SmoothCosBoomerang(mStep, Frames(LatestFrame).ImageCount)
+                End Select
 
-            Case AnimType.LSmthBmerng_
-                linDisp = Animation_SmoothCosBoomerang(mStep, Frames(LatestFrame).ImageCount)
-                GoTo linear_movements
-
-
-            Case AnimType.LEaseIn_
-                linDisp = Animation_EaseInQuad(mStep, Frames(LatestFrame).ImageCount)
-                GoTo linear_movements
-
-            Case AnimType.LAccIn_
-                linDisp = Animation_AccInSqrt(mStep, Frames(LatestFrame).ImageCount)
-                GoTo linear_movements
-
-            Case AnimType.LEaseOut_
-                linDisp = Animation_EaseOutQuad(mStep, Frames(LatestFrame).ImageCount)
-                GoTo linear_movements
-
-            Case AnimType.LEaseInOut_
-                linDisp = Animation_EaseInOutArctanAsSigmoid(mStep, Frames(LatestFrame).ImageCount)
-                GoTo linear_movements
-
-            Case AnimType.Linear_
 
 
 linear_movements:
@@ -1502,62 +1575,69 @@ Cursor.Position.Y < Me.Location.Y + Panel18.Location.Y + Panel18.Height Then
     End Sub
 
     Private Sub TimerForAnim_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TimerForAnim.Tick
+        Dim thisWorld As WORLD
 
+        If Form2.USE_TEMPORARY_WORLD Then 'We're using a temporary world
+            thisWorld = TempWorld
+        Else
+            thisWorld = CurrentWorld 'Not sure how but yeah
+        End If
 
         If Form2.Visible Then
 
             If Form2.ListBox1.SelectedIndex = -1 Then Exit Sub
-            If CurrentWorld.AllFrames(Form2.ListBox1.SelectedIndex).Count < LatestFrame Then LatestFrame = 0
-            Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(0).TCoords = CurrentWorld.AllFrames(Form2.ListBox1.SelectedIndex)(LatestFrame).UV(Split(Form2.ListBox2.SelectedItem, ",")(0))
-            Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(1).TCoords = CurrentWorld.AllFrames(Form2.ListBox1.SelectedIndex)(LatestFrame).UV(Split(Form2.ListBox2.SelectedItem, ",")(1))
-            Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(2).TCoords = CurrentWorld.AllFrames(Form2.ListBox1.SelectedIndex)(LatestFrame).UV(Split(Form2.ListBox2.SelectedItem, ",")(2))
-            Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(3).TCoords = CurrentWorld.AllFrames(Form2.ListBox1.SelectedIndex)(LatestFrame).UV(Split(Form2.ListBox2.SelectedItem, ",")(3))
+            If thisWorld.AllFrames(Form2.ListBox1.SelectedIndex).Count < LatestFrame Then LatestFrame = 0
+            Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(0).TCoords = thisWorld.AllFrames(Form2.ListBox1.SelectedIndex)(LatestFrame).UV(Split(Form2.ListBox2.SelectedItem, ",")(0))
+            Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(1).TCoords = thisWorld.AllFrames(Form2.ListBox1.SelectedIndex)(LatestFrame).UV(Split(Form2.ListBox2.SelectedItem, ",")(1))
+            Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(2).TCoords = thisWorld.AllFrames(Form2.ListBox1.SelectedIndex)(LatestFrame).UV(Split(Form2.ListBox2.SelectedItem, ",")(2))
+            Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(3).TCoords = thisWorld.AllFrames(Form2.ListBox1.SelectedIndex)(LatestFrame).UV(Split(Form2.ListBox2.SelectedItem, ",")(3))
 
 
 
-            PScn.GetMaterial(0).Texture1 = videoDriver.GetTexture(WorldPath & WorldName & Chr(65 + CurrentWorld.AllFrames(Form2.ListBox1.SelectedIndex)(LatestFrame).Tex) & ".bmp")
+            PScn.GetMaterial(0).Texture1 = videoDriver.GetTexture(WorldPath & WorldName & Chr(65 + thisWorld.AllFrames(Form2.ListBox1.SelectedIndex)(LatestFrame).Tex) & ".bmp")
+
 
 
 
 
             'Error, timer = 0
-            If CurrentWorld.AllFrames(Form2.ListBox1.SelectedIndex)(LatestFrame).Delay = 0 Then
+            If thisWorld.AllFrames(Form2.ListBox1.SelectedIndex)(LatestFrame).Delay = 0 Then
                 MsgBox("Frames(" & LatestFrame & ").time = 0", MsgBoxStyle.Critical, "Error")
                 TimerForAnim.Stop()
                 Exit Sub
             End If
 
 
-            TimerForAnim.Interval = CurrentWorld.AllFrames(Form2.ListBox1.SelectedIndex)(LatestFrame).Delay '* 1000
+            TimerForAnim.Interval = thisWorld.AllFrames(Form2.ListBox1.SelectedIndex)(LatestFrame).Delay '* 1000
             LatestFrame += 1
-            If LatestFrame >= CurrentWorld.AllFrames(Form2.ListBox1.SelectedIndex).Count Then LatestFrame = 0
+            If LatestFrame >= thisWorld.AllFrames(Form2.ListBox1.SelectedIndex).Count Then LatestFrame = 0
         ElseIf W_Control.Visible Then
 
             If W_Control.ListBox1.SelectedIndex = -1 Then Exit Sub
-            If CurrentWorld.AllFrames(W_Control.ListBox1.SelectedIndex).Count < LatestFrame Then LatestFrame = 0
-            Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(0).TCoords = CurrentWorld.AllFrames(W_Control.ListBox1.SelectedIndex)(LatestFrame).UV(3)
-            Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(1).TCoords = CurrentWorld.AllFrames(W_Control.ListBox1.SelectedIndex)(LatestFrame).UV(0)
-            Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(2).TCoords = CurrentWorld.AllFrames(W_Control.ListBox1.SelectedIndex)(LatestFrame).UV(2)
-            Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(3).TCoords = CurrentWorld.AllFrames(W_Control.ListBox1.SelectedIndex)(LatestFrame).UV(1)
+            If thisWorld.AllFrames(W_Control.ListBox1.SelectedIndex).Count < LatestFrame Then LatestFrame = 0
+            Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(0).TCoords = thisWorld.AllFrames(W_Control.ListBox1.SelectedIndex)(LatestFrame).UV(3)
+            Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(1).TCoords = thisWorld.AllFrames(W_Control.ListBox1.SelectedIndex)(LatestFrame).UV(0)
+            Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(2).TCoords = thisWorld.AllFrames(W_Control.ListBox1.SelectedIndex)(LatestFrame).UV(2)
+            Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(3).TCoords = thisWorld.AllFrames(W_Control.ListBox1.SelectedIndex)(LatestFrame).UV(1)
 
 
 
-            PScn.GetMaterial(0).Texture1 = videoDriver.GetTexture(WorldPath & WorldName & Chr(65 + CurrentWorld.AllFrames(W_Control.ListBox1.SelectedIndex)(LatestFrame).Tex) & ".bmp")
+            PScn.GetMaterial(0).Texture1 = videoDriver.GetTexture(WorldPath & WorldName & Chr(65 + thisWorld.AllFrames(W_Control.ListBox1.SelectedIndex)(LatestFrame).Tex) & ".bmp")
 
 
 
 
             'Error, timer = 0
-            If CurrentWorld.AllFrames(W_Control.ListBox1.SelectedIndex)(LatestFrame).Delay = 0 Then
+            If thisWorld.AllFrames(W_Control.ListBox1.SelectedIndex)(LatestFrame).Delay = 0 Then
                 MsgBox("Frames(" & LatestFrame & ").time = 0", MsgBoxStyle.Critical, "Error")
                 TimerForAnim.Stop()
                 Exit Sub
             End If
 
 
-            TimerForAnim.Interval = CurrentWorld.AllFrames(W_Control.ListBox1.SelectedIndex)(LatestFrame).Delay '* 1000
+            TimerForAnim.Interval = thisWorld.AllFrames(W_Control.ListBox1.SelectedIndex)(LatestFrame).Delay '* 1000
             LatestFrame += 1
-            If LatestFrame >= CurrentWorld.AllFrames(W_Control.ListBox1.SelectedIndex).Count Then LatestFrame = 0
+            If LatestFrame >= thisWorld.AllFrames(W_Control.ListBox1.SelectedIndex).Count Then LatestFrame = 0
 
 
 
@@ -1566,6 +1646,8 @@ Cursor.Position.Y < Me.Location.Y + Panel18.Location.Y + Panel18.Height Then
     End Sub
 
     Private Sub ComboBox2_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ComboBox2.SelectedIndexChanged
+
+        ComboBox4.Enabled = ComboBox2.SelectedIndex = 1 Or ComboBox2.SelectedIndex = 2
         Frames(CurrentFrame).Type = ComboBox2.SelectedIndex
 
         If Frames(CurrentFrame).Type = AnimType.Static_ Then
@@ -1742,6 +1824,16 @@ Cursor.Position.Y < Me.Location.Y + Panel18.Location.Y + Panel18.Height Then
 
         Next i
         MapSelectors()
+
+    End Sub
+
+    Private Sub ComboBox4_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ComboBox4.SelectedIndexChanged
+        Frames(CurrentFrame).AnimationSpeed = ComboBox4.SelectedIndex
+
+    End Sub
+
+    Private Sub RadioButton1_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RadioButton1.CheckedChanged
+        If RadioButton1.Checked Then State = EditModes.Scale_
 
     End Sub
 End Class

@@ -1,5 +1,6 @@
 ﻿Public Class W_Control
 
+    Public FORM_W_LOST_FOCUS As Boolean = True
     Dim InitPos As Point
     Private Sub Panel1_MouseMove(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Panel1.MouseMove
         If MouseButtons = Windows.Forms.MouseButtons.Left Then
@@ -22,9 +23,19 @@
         LoadFrame(CurrentFrame)
 
 
+
+        'activate first frame (if possible)
+        Dim ev As New MouseEventArgs(Windows.Forms.MouseButtons.Left, 1, 0, 0, 0)
+        Form1.Panel12_Click(Form1.Panel12, ev)
+
     End Sub
     Public myData$
     Dim Th As Threading.Thread
+
+    Private Sub W_Control_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Activated
+
+        FORM_W_LOST_FOCUS = False
+    End Sub
     Private Sub W_Control_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Location = Form1.Location + New Point(-100, 20)
         Th = New Threading.Thread(AddressOf StartThread)
@@ -58,6 +69,11 @@
         Form1.LatestFrame = 0
         Form1.TimerForAnim.Start()
 
+    End Sub
+
+    Private Sub W_Control_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Deactivate
+
+        FORM_W_LOST_FOCUS = True
     End Sub
 
     Private Sub W_Control_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
@@ -175,5 +191,9 @@
     Private Sub Button11_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button11.Click
         Button10.PerformClick()
         YUIAutoCook_TimeMachine.TimeMachine_ReturnRecipe()
+    End Sub
+
+    Private Sub Label2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Label2.Click
+
     End Sub
 End Class

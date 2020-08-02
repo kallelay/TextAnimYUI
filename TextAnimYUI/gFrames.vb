@@ -9,6 +9,7 @@ Module gFrames
         Public Image As Drawing.Image = Nothing
         Public Tex As Short
         Public Type As AnimType = AnimType.Static_
+        Public AnimationSpeed As AnimMethod = AnimMethod.Linear_
         Public Delay! = 30
         Public UV(4) As Vector2D
         Public Cloned As Boolean = False
@@ -121,11 +122,22 @@ els:
         Rotation_ = 2
         Grid_ = 3
         Shake_ = 4
-        LSmooth_ = 5
-        LSmthBmerng_ = 6
-        LEaseIn_ = 7
-        LEaseOut_ = 8
-        LEaseInOut_ = 9
-        LAccIn_ = 10
+        'Smooth_ = 5
+        'SmthBmerng_ = 6
+        'EaseIn_ = 7
+        'EaseOut_ = 8
+        'EaseInOut_ = 9
+        'AccIn_ = 10
+    End Enum
+
+    Enum AnimMethod
+
+        Linear_ = 0
+        Smooth_ = 1
+        SmthBmerng_ = 2
+        EaseIn_ = 3
+        EaseOut_ = 4
+        EaseInOut_ = 5
+        AccIn_ = 6
     End Enum
 End Module

@@ -1,6 +1,6 @@
 ﻿Imports IrrlichtNETCP
 Imports System.Math
-Module Gmodule
+Module Gmodule 'Global Module
 
     Public WorldPath$
     Public WorldFile$
@@ -39,11 +39,11 @@ Module Gmodule
     Public Sel(4) As SceneNode
     '  Public cubes(4) As AnimatedMesh
     Sub InitSelectors()
-     
+
 
         For i = 0 To 3
             Sel(i) = ScnMgr2.AddCubeSceneNode(0.014, Nothing, Nothing)
-            Sel(i).GetMaterial(0).EmissiveColor = Color.Blue
+            Sel(i).GetMaterial(0).EmissiveColor = SelectedColor
         Next
 
 
@@ -74,7 +74,7 @@ Module Gmodule
         Nothing_
         Move_
         Rotate_
-        'Scale_
+        Scale_
         Rect_
         Select_
 
@@ -110,12 +110,20 @@ Module Gmodule
             '  Next
             '  Next
         End Sub
-        Sub CreateRotationMatrix(ByVal Theta)
+        Sub CreateRotationMatrix(ByVal Theta!)
             Values(0, 0) = Cos(Theta)
             Values(0, 1) = -Sin(Theta)
             Values(1, 0) = Sin(Theta)
             Values(1, 1) = Cos(Theta)
         End Sub
+
+        Sub CreateScaleMatrix(ByVal Scale!)
+            Values(0, 0) = Scale
+            Values(0, 1) = 0
+            Values(1, 0) = Scale
+            Values(1, 1) = 0
+        End Sub
+
 
         Public Shared Operator *(ByVal Mat As Matrix2x2, ByVal Vec As Vector2D) As Vector2D
             Return New Vector2D(Mat.Values(0, 0) * Vec.X + Mat.Values(0, 1) * Vec.Y, Mat.Values(1, 0) * Vec.X + Mat.Values(1, 1) * Vec.Y)
@@ -125,7 +133,7 @@ Module Gmodule
     End Class
 
     Sub LaunchInsidePanel()
-  
+
     End Sub
 
 

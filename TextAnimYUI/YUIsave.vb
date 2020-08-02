@@ -4,13 +4,18 @@ Module YUIsave
     Public Sub SaveYUIfile(ByVal fname$)
         Dim str As New FileStream(fname, FileMode.OpenOrCreate)
         Dim stW As New BinaryWriter(str)
-        stW.Write(CInt(32768))        'header for 'new file' format
+        stW.Write(CInt(1))        'header for 'new file' format
+
+        '32768: TEXYUI version 2012/2013
+        '00001: TEXYUI version 2020/08/01
+
         stW.Write(CInt(Frames.Count)) 'frames count
 
         For i = 0 To Frames.Count - 1
             With Frames(i)
                 stW.Write(CShort(.Tex))
                 stW.Write(CInt(.Type))
+                stW.Write(CInt(.AnimationSpeed)) 'v01
                 stW.Write(CSng(.Delay))
                 stW.Write(CInt(.ImageCount))
                 stW.Write(CSng(.Rotation))
@@ -18,6 +23,8 @@ Module YUIsave
                     stW.Write(CSng(.UV(j).X))
                     stW.Write(CSng(.UV(j).Y))
                 Next
+                stW.Write(CInt(.Cloned)) 'v01 Cloned
+                stW.Write(CSng(.NoiseLevel)) 'Noise level
 
                 'image...
 
@@ -52,9 +59,15 @@ Module YUIsave
         Dim str As New BinaryReader(mstr)
         Frames.Clear()
 
-        
-        OldFormat = False
-        str.ReadInt32()
+
+        Select Case str.ReadInt32()
+            Case 32768
+                OldFormat = True
+
+            Case 1
+                OldFormat = False
+
+        End Select
 
 
 
@@ -65,6 +78,7 @@ Module YUIsave
             With Frames(i)
                 .Tex = str.ReadInt16
                 .Type = str.ReadInt32
+                If Not OldFormat Then .AnimationSpeed = str.ReadInt32
                 .Delay = str.ReadSingle
                 .ImageCount = str.ReadInt32
                 If Not OldFormat Then .Rotation = str.ReadSingle
@@ -72,7 +86,10 @@ Module YUIsave
                     .UV(j) = New IrrlichtNETCP.Vector2D(str.ReadSingle, str.ReadSingle)
                 Next
 
-                Dim ImgSize = str.ReadInt32
+                If Not OldFormat Then .Cloned = str.ReadInt32
+                If Not OldFormat Then .NoiseLevel = str.ReadSingle
+
+                Dim ImgSize = str.ReadInt32 'skipped
                 'Debugger.Break()
                 '  Dim Image() As Byte
 

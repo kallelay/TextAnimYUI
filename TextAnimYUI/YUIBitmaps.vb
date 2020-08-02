@@ -85,6 +85,12 @@ Module YUIBitmaps
 
     Function SaveUVintoPICTURE(ByVal FrameIndex%) As Drawing.Image
         If FrameIndex >= Frames.Count Then Return Nothing
+        If IO.File.Exists(WorldPath & WorldName & Chr(65 + Frames(FrameIndex%).Tex) & ".bmp") = False Then
+            Debugx("Requesting an inexistant file: " & WorldName & Chr(65 + Frames(FrameIndex%).Tex) & ".bmp")
+            Return Nothing
+
+        End If
+
         Dim mbmp = Drawing.Image.FromFile(WorldPath & WorldName & Chr(65 + Frames(FrameIndex%).Tex) & ".bmp")
         For i = 0 To 3
             selec(i) = New Point(Frames(FrameIndex%).UV(i).X * mbmp.Width, Frames(FrameIndex%).UV(i).Y * mbmp.Height)

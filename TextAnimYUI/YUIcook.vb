@@ -13,7 +13,7 @@
         Dim InputList As New List(Of Frame) 'new list of interpolated frames
 
         Select Case Frames(CurrentFrame).Type
-            Case AnimType.LAccIn_, AnimType.LEaseIn_, AnimType.LEaseInOut_, AnimType.LEaseOut_, AnimType.Linear_, AnimType.LSmooth_, AnimType.LSmthBmerng_
+            Case AnimType.Linear_
 
 
                 flag_last_frame_is_a_linker = (Frames(CurrentFrame + 1).Delay = 0) '= True
@@ -25,14 +25,14 @@
 
 
                     'Generate new dispVector 
-                    Select Case Frames(CurrentFrame).Type
-                        Case AnimType.Linear_ : linDisp! = Animation_Linear(i, Frames(CurrentFrame).ImageCount - flag_last_frame_is_a_linker)
-                        Case AnimType.LSmooth_ : linDisp = Animation_SmoothCos(i, Frames(CurrentFrame).ImageCount - flag_last_frame_is_a_linker)
-                        Case AnimType.LSmthBmerng_ : linDisp = Animation_SmoothCosBoomerang(i, Frames(CurrentFrame).ImageCount - flag_last_frame_is_a_linker)
-                        Case AnimType.LEaseIn_ : linDisp = Animation_EaseInQuad(i, Frames(CurrentFrame).ImageCount - flag_last_frame_is_a_linker)
-                        Case AnimType.LAccIn_ : linDisp = Animation_AccInSqrt(i, Frames(CurrentFrame).ImageCount - flag_last_frame_is_a_linker)
-                        Case AnimType.LEaseOut_ : linDisp = Animation_EaseOutQuad(i, Frames(CurrentFrame).ImageCount - flag_last_frame_is_a_linker)
-                        Case AnimType.LEaseInOut_ : linDisp = Animation_EaseInOutArctanAsSigmoid(i, Frames(CurrentFrame).ImageCount - flag_last_frame_is_a_linker)
+                    Select Case Frames(CurrentFrame).AnimationSpeed
+                        Case AnimMethod.Linear_ : linDisp! = Animation_Linear(i, Frames(CurrentFrame).ImageCount - flag_last_frame_is_a_linker)
+                        Case AnimMethod.Smooth_ : linDisp = Animation_SmoothCos(i, Frames(CurrentFrame).ImageCount - flag_last_frame_is_a_linker)
+                        Case AnimMethod.SmthBmerng_ : linDisp = Animation_SmoothCosBoomerang(i, Frames(CurrentFrame).ImageCount - flag_last_frame_is_a_linker)
+                        Case AnimMethod.EaseIn_ : linDisp = Animation_EaseInQuad(i, Frames(CurrentFrame).ImageCount - flag_last_frame_is_a_linker)
+                        Case AnimMethod.AccIn_ : linDisp = Animation_AccInSqrt(i, Frames(CurrentFrame).ImageCount - flag_last_frame_is_a_linker)
+                        Case AnimMethod.EaseOut_ : linDisp = Animation_EaseOutQuad(i, Frames(CurrentFrame).ImageCount - flag_last_frame_is_a_linker)
+                        Case AnimMethod.EaseInOut_ : linDisp = Animation_EaseInOutArctanAsSigmoid(i, Frames(CurrentFrame).ImageCount - flag_last_frame_is_a_linker)
                     End Select
 
 
@@ -63,16 +63,29 @@
 
             Case AnimType.Rotation_ '------------------ ROTATION
 
+
                 Dim Mat As New Matrix2x2
 
                 For i = 0 To Frames(CurrentFrame).ImageCount - 1
+                    Select Case Frames(CurrentFrame).AnimationSpeed
+                        Case AnimMethod.Linear_ : linDisp! = Animation_Linear(i, Frames(CurrentFrame).ImageCount - flag_last_frame_is_a_linker)
+                        Case AnimMethod.Smooth_ : linDisp = Animation_SmoothCos(i, Frames(CurrentFrame).ImageCount - flag_last_frame_is_a_linker)
+                        Case AnimMethod.SmthBmerng_ : linDisp = Animation_SmoothCosBoomerang(i, Frames(CurrentFrame).ImageCount - flag_last_frame_is_a_linker)
+                        Case AnimMethod.EaseIn_ : linDisp = Animation_EaseInQuad(i, Frames(CurrentFrame).ImageCount - flag_last_frame_is_a_linker)
+                        Case AnimMethod.AccIn_ : linDisp = Animation_AccInSqrt(i, Frames(CurrentFrame).ImageCount - flag_last_frame_is_a_linker)
+                        Case AnimMethod.EaseOut_ : linDisp = Animation_EaseOutQuad(i, Frames(CurrentFrame).ImageCount - flag_last_frame_is_a_linker)
+                        Case AnimMethod.EaseInOut_ : linDisp = Animation_EaseInOutArctanAsSigmoid(i, Frames(CurrentFrame).ImageCount - flag_last_frame_is_a_linker)
+                    End Select
+
+
+
                     InputList.Add(New Frame)
                     InputList(i).Delay = Frames(CurrentFrame).Delay / Frames(CurrentFrame).ImageCount
                     InputList(i).Tex = Frames(CurrentFrame).Tex
                     InputList(i).Type = AnimType.Static_
                     For j = 0 To 3
                         Dim PivotU = (Frames(CurrentFrame).UV(0) + Frames(CurrentFrame).UV(1) + Frames(CurrentFrame).UV(2) + Frames(CurrentFrame).UV(3)) / 4
-                        Mat.CreateRotationMatrix((Frames(CurrentFrame + 1).Rotation - Frames(CurrentFrame).Rotation) * i / Frames(CurrentFrame).ImageCount)
+                        Mat.CreateRotationMatrix((Frames(CurrentFrame + 1).Rotation - Frames(CurrentFrame).Rotation) * linDisp)
                         InputList(i).UV(j) = Mat * (Frames(CurrentFrame).UV(j) - PivotU) + PivotU
                     Next
 
@@ -113,7 +126,7 @@
 
 
             Case AnimType.Grid_
-                'TODO: Grid 1
+
 
                 '3 0 2 1'
 
@@ -132,8 +145,12 @@
 
                 For i = 0 To Frames(CurrentFrame).ImageCount - 1
 
+                    '  cy = Math.Floor(i / Math.Sqrt(Frames(CurrentFrame).ImageCount))
+                    ' cx = i / Math.Sqrt(Frames(CurrentFrame).ImageCount) - Math.Floor(i / Math.Sqrt(Frames(CurrentFrame).ImageCount))
+
                     cy = Math.Floor(i / Math.Sqrt(Frames(CurrentFrame).ImageCount))
-                    cx = i / Math.Sqrt(Frames(CurrentFrame).ImageCount) - Math.Floor(i / Math.Sqrt(Frames(CurrentFrame).ImageCount))
+                    cx = (i / Math.Sqrt(Frames(CurrentFrame).ImageCount) - Math.Floor(i / Math.Sqrt(Frames(CurrentFrame).ImageCount))) * Math.Sqrt(Frames(CurrentFrame).ImageCount)
+
 
                     '  Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(0).TCoords = New IrrlichtNETCP.Vector2D((cx + 0) * sx + ofx, (cy + 1) * sy + ofy)
                     ' Plane.GetMesh(0).GetMeshBuffer(0).GetVertex(1).TCoords = New IrrlichtNETCP.Vector2D((cx + 0) * sx + ofx, (cy + 0) * sy + ofy)

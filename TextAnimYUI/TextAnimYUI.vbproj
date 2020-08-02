@@ -160,6 +160,7 @@
     <Compile Include="YUIRender.vb" />
     <Compile Include="YUIsave.vb" />
     <Compile Include="YUIw_import_export.vb" />
+    <Compile Include="YUI_blender_texanimcomp.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Form1.resx">
@@ -270,6 +271,7 @@
     <Content Include="nVolt.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\scale1.png" />
     <None Include="Resources\manage.png" />
     <None Include="Resources\sym2.png" />
     <None Include="Resources\sym.png" />

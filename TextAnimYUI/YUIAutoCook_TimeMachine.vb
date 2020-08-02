@@ -105,9 +105,6 @@ state_joint_finally:
         Debugx("Time Machine is now stopped")
 
 
-        'TODO: time diff changing, linear transitions
-
-        'TODO: rotation 
 
 
 

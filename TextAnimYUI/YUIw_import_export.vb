@@ -5,6 +5,7 @@ Module YUIw_import_export
 
     Public Zoom = 1
     Public CurrentWorld As WORLD
+    Public TempWorld As WORLD 'for loading temporary worlds 
     Public CurrentMesh As Integer = -1
     Public CurrentPoly As Integer = -1
 
@@ -78,6 +79,12 @@ Module YUIw_import_export
         Public AllFrames As New List(Of List(Of Frame))
 
         Sub New(ByVal filepath As String)
+
+            If filepath = "" Then
+                Debug.WriteLine("WORLD file is temporary")
+                Exit Sub
+            End If
+
             polyEleven = 0
             For i = 0 To 27
                 Bitmaps(i) = New ListBox
@@ -226,10 +233,17 @@ Module YUIw_import_export
 
             Next
 
+
+
+
             ReDim ENV(polyEleven)
+            'Support for old files which do not necessarily have Uint32 (e.g. W_Console files)
+
             Try
                 For a = 0 To polyEleven - 1
-                    ENV(a) = J.ReadUInt32
+                    If J.BaseStream.Position < J.BaseStream.Length Then
+                        ENV(a) = J.ReadUInt32
+                    End If
                 Next
 
             Catch ex As Exception

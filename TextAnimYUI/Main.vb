@@ -1,4 +1,5 @@
 ﻿Public Class Main
+    Public TEXYUI_VERSION$ = "2020-08-02"
 
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
         Process.GetCurrentProcess.Kill()
@@ -10,6 +11,7 @@
     End Sub
     Dim InitPos As Point
     Private Sub Main_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
         Me.Height = 137
         Me.StartPosition = FormStartPosition.CenterScreen
 
@@ -22,6 +24,17 @@
         If IO.File.Exists(My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & "Path") <> False Then
             TextBox1.Text = IO.File.ReadAllText(My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & "Path")
         End If
+        Debugx("Loading TexYUI -- TextAnimYUI")
+        Debugx("Version: " & TEXYUI_VERSION)
+
+
+
+        Debugx("Mem: " & Strings.Format(My.Computer.Info.TotalPhysicalMemory / 1024 ^ 3, "00.00") & " GB [av: " & Strings.Format(My.Computer.Info.AvailablePhysicalMemory / 1024 ^ 3, "00.00") & " GB]")
+        Debugx("VMem: " & Strings.Format(My.Computer.Info.TotalVirtualMemory / 1024 ^ 3, "00.00") & " GB [av: " & Strings.Format(My.Computer.Info.AvailableVirtualMemory / 1024 ^ 3, "00.00") & " GB]")
+        Debugx("OS: " & My.Computer.Info.OSVersion & ",  " & My.Computer.Info.OSFullName)
+        Debugx("----------------------------------")
+
+
     End Sub
 
     Private Sub Main_MouseMove(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Me.MouseMove
@@ -65,6 +78,10 @@
         'Save into file
         IO.File.WriteAllText(My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & "Path", TextBox1.Text)
 
+        'Declare that everything should be ok
+        Debugx("Chosen Level: " & WorldName)
+        Debugx("Level path: " & WorldPath)
+        Debugx("Starting TexYUI")
 
         'unload this form and load form1
         Form1.Show()

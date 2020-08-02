@@ -1,4 +1,6 @@
 ﻿Public Class SelectPolies
+
+    Public FORM_SPOLIES_LOST_FOCUS As Boolean = True
     Dim InitPos As Point
     Dim clicked = False
     Dim started = False
@@ -85,7 +87,7 @@
                     Inside = False
                     Exit For
                 End If
-            
+
 
 
 
@@ -96,6 +98,15 @@
             ListBox1.Items.Add("Mesh n°" & i)
 
         Next
+    End Sub
+
+    Private Sub SelectPolies_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Activated
+        FORM_SPOLIES_LOST_FOCUS = False
+    End Sub
+
+    Private Sub SelectPolies_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Deactivate
+
+        FORM_SPOLIES_LOST_FOCUS = True
     End Sub
 
 

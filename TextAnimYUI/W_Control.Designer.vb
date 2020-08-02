@@ -35,10 +35,10 @@ Partial Class W_Control
         Me.Button7 = New System.Windows.Forms.Button
         Me.Button8 = New System.Windows.Forms.Button
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
+        Me.Button11 = New System.Windows.Forms.Button
+        Me.Button10 = New System.Windows.Forms.Button
         Me.savebutton = New System.Windows.Forms.Button
         Me.Button9 = New System.Windows.Forms.Button
-        Me.Button10 = New System.Windows.Forms.Button
-        Me.Button11 = New System.Windows.Forms.Button
         Me.Panel1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -92,11 +92,11 @@ Partial Class W_Control
         '
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.LightGray
-        Me.Label2.Location = New System.Drawing.Point(69, 3)
+        Me.Label2.Location = New System.Drawing.Point(56, 3)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(56, 13)
+        Me.Label2.Size = New System.Drawing.Size(104, 13)
         Me.Label2.TabIndex = 16
-        Me.Label2.Text = "Control .W"
+        Me.Label2.Text = "Control .W's Texanim"
         '
         'Button1
         '
@@ -208,6 +208,25 @@ Partial Class W_Control
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Manage animations"
         '
+        'Button11
+        '
+        Me.Button11.Font = New System.Drawing.Font("Calibri", 7.25!)
+        Me.Button11.Location = New System.Drawing.Point(77, 221)
+        Me.Button11.Name = "Button11"
+        Me.Button11.Size = New System.Drawing.Size(116, 26)
+        Me.Button11.TabIndex = 12
+        Me.Button11.Text = "Load this && TimeMachine"
+        Me.Button11.UseVisualStyleBackColor = True
+        '
+        'Button10
+        '
+        Me.Button10.Location = New System.Drawing.Point(6, 221)
+        Me.Button10.Name = "Button10"
+        Me.Button10.Size = New System.Drawing.Size(70, 26)
+        Me.Button10.TabIndex = 11
+        Me.Button10.Text = "&Load this"
+        Me.Button10.UseVisualStyleBackColor = True
+        '
         'savebutton
         '
         Me.savebutton.Location = New System.Drawing.Point(101, 1)
@@ -226,25 +245,6 @@ Partial Class W_Control
         Me.Button9.TabIndex = 10
         Me.Button9.Text = "&Add new animation (no assignment)"
         Me.Button9.UseVisualStyleBackColor = True
-        '
-        'Button10
-        '
-        Me.Button10.Location = New System.Drawing.Point(6, 221)
-        Me.Button10.Name = "Button10"
-        Me.Button10.Size = New System.Drawing.Size(70, 26)
-        Me.Button10.TabIndex = 11
-        Me.Button10.Text = "&Load this"
-        Me.Button10.UseVisualStyleBackColor = True
-        '
-        'Button11
-        '
-        Me.Button11.Font = New System.Drawing.Font("Calibri", 7.25!)
-        Me.Button11.Location = New System.Drawing.Point(77, 221)
-        Me.Button11.Name = "Button11"
-        Me.Button11.Size = New System.Drawing.Size(116, 26)
-        Me.Button11.TabIndex = 12
-        Me.Button11.Text = "Load this && TimeMachine"
-        Me.Button11.UseVisualStyleBackColor = True
         '
         'W_Control
         '

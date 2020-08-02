@@ -59,6 +59,7 @@ Partial Class Form1
         Me.Panel16 = New System.Windows.Forms.Panel
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Panel18 = New System.Windows.Forms.Panel
+        Me.ComboBox4 = New System.Windows.Forms.ComboBox
         Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown
         Me.TextBox6 = New System.Windows.Forms.TextBox
         Me.ComboBox2 = New System.Windows.Forms.ComboBox
@@ -102,6 +103,8 @@ Partial Class Form1
         Me.ComboBox3 = New System.Windows.Forms.ComboBox
         Me.Label19 = New System.Windows.Forms.Label
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.statuslbl = New System.Windows.Forms.Label
+        Me.RadioButton1 = New System.Windows.Forms.RadioButton
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -457,7 +460,7 @@ Partial Class Form1
         Me.Panel6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Panel6.Location = New System.Drawing.Point(704, 374)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(54, 141)
+        Me.Panel6.Size = New System.Drawing.Size(45, 141)
         Me.Panel6.TabIndex = 5
         '
         'Panel7
@@ -498,6 +501,7 @@ Partial Class Form1
         Me.Panel18.BackgroundImage = Global.TextAnimYUI.My.Resources.Resources.back1
         Me.Panel18.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Panel18.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel18.Controls.Add(Me.ComboBox4)
         Me.Panel18.Controls.Add(Me.NumericUpDown1)
         Me.Panel18.Controls.Add(Me.TextBox6)
         Me.Panel18.Controls.Add(Me.ComboBox2)
@@ -522,6 +526,16 @@ Partial Class Form1
         Me.Panel18.TabIndex = 0
         Me.Panel18.Visible = False
         '
+        'ComboBox4
+        '
+        Me.ComboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox4.FormattingEnabled = True
+        Me.ComboBox4.Items.AddRange(New Object() {"Linear", "Smooth ", "Smooth Boomerang", "Ease-In", "Ease-Out", "Ease-InOut", "Acc-In"})
+        Me.ComboBox4.Location = New System.Drawing.Point(184, 7)
+        Me.ComboBox4.Name = "ComboBox4"
+        Me.ComboBox4.Size = New System.Drawing.Size(79, 21)
+        Me.ComboBox4.TabIndex = 23
+        '
         'NumericUpDown1
         '
         Me.NumericUpDown1.Location = New System.Drawing.Point(215, 86)
@@ -543,10 +557,10 @@ Partial Class Form1
         '
         Me.ComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox2.FormattingEnabled = True
-        Me.ComboBox2.Items.AddRange(New Object() {"Static", "Linear ", "Rotation", "Grid", "Shake", "Smooth ", "Smooth Boomerang", "Ease-In", "Ease-Out", "Ease-InOut", "Acc-In"})
+        Me.ComboBox2.Items.AddRange(New Object() {"Static", "Linear ", "Rotation", "Grid", "Shake"})
         Me.ComboBox2.Location = New System.Drawing.Point(83, 7)
         Me.ComboBox2.Name = "ComboBox2"
-        Me.ComboBox2.Size = New System.Drawing.Size(111, 21)
+        Me.ComboBox2.Size = New System.Drawing.Size(95, 21)
         Me.ComboBox2.TabIndex = 12
         '
         'Label4
@@ -576,7 +590,7 @@ Partial Class Form1
         Me.Label22.AutoSize = True
         Me.Label22.BackColor = System.Drawing.Color.Transparent
         Me.Label22.Font = New System.Drawing.Font("Calibri", 8.25!)
-        Me.Label22.Location = New System.Drawing.Point(173, 89)
+        Me.Label22.Location = New System.Drawing.Point(170, 89)
         Me.Label22.Name = "Label22"
         Me.Label22.Size = New System.Drawing.Size(48, 13)
         Me.Label22.TabIndex = 20
@@ -777,8 +791,9 @@ Partial Class Form1
         '
         'ofd
         '
-        Me.ofd.Filter = "Supported files|*.w;*.yui;*.txt;*.framelist|TexYUI file (*.YUI)|*.yui|W_Console f" & _
-            "ile (*.framelist;*.txt)|*.framelist;*.txt|Re-Volt World File|*.w"
+        Me.ofd.Filter = "Supported files|*.w;*.yui;*.txt;*.framelist;*.ta.csv|TexYUI file (*.YUI)|*.yui|W_" & _
+            "Console file (*.framelist;*.txt)|*.framelist;*.txt|Re-Volt World File|*.w|Texani" & _
+            "m CSV|*.ta.csv"
         Me.ofd.Title = "Open a Texture Animation File"
         '
         'Timer2
@@ -844,7 +859,7 @@ Partial Class Form1
         Me.Panel9.Controls.Add(Me.Label14)
         Me.Panel9.Controls.Add(Me.Label13)
         Me.Panel9.Controls.Add(Me.Label12)
-        Me.Panel9.Location = New System.Drawing.Point(337, 93)
+        Me.Panel9.Location = New System.Drawing.Point(339, 85)
         Me.Panel9.Name = "Panel9"
         Me.Panel9.Size = New System.Drawing.Size(71, 43)
         Me.Panel9.TabIndex = 24
@@ -887,7 +902,7 @@ Partial Class Form1
         '
         Me.Button18.BackgroundImage = Global.TextAnimYUI.My.Resources.Resources.sym
         Me.Button18.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.Button18.Location = New System.Drawing.Point(131, 60)
+        Me.Button18.Location = New System.Drawing.Point(171, 61)
         Me.Button18.Name = "Button18"
         Me.Button18.Size = New System.Drawing.Size(29, 32)
         Me.Button18.TabIndex = 25
@@ -897,7 +912,7 @@ Partial Class Form1
         '
         Me.Button19.BackgroundImage = Global.TextAnimYUI.My.Resources.Resources.sym2
         Me.Button19.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.Button19.Location = New System.Drawing.Point(165, 59)
+        Me.Button19.Location = New System.Drawing.Point(205, 60)
         Me.Button19.Name = "Button19"
         Me.Button19.Size = New System.Drawing.Size(29, 32)
         Me.Button19.TabIndex = 26
@@ -905,12 +920,14 @@ Partial Class Form1
         '
         'TextBox4
         '
-        Me.TextBox4.Location = New System.Drawing.Point(803, 4)
+        Me.TextBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.TextBox4.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.25!)
+        Me.TextBox4.Location = New System.Drawing.Point(799, 4)
         Me.TextBox4.Multiline = True
         Me.TextBox4.Name = "TextBox4"
         Me.TextBox4.ReadOnly = True
         Me.TextBox4.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.TextBox4.Size = New System.Drawing.Size(188, 522)
+        Me.TextBox4.Size = New System.Drawing.Size(191, 427)
         Me.TextBox4.TabIndex = 27
         '
         'ComboBox3
@@ -933,6 +950,32 @@ Partial Class Form1
         Me.Label19.TabIndex = 4
         Me.Label19.Text = "Select color:"
         '
+        'statuslbl
+        '
+        Me.statuslbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.statuslbl.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.statuslbl.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.25!)
+        Me.statuslbl.Location = New System.Drawing.Point(799, 431)
+        Me.statuslbl.Margin = New System.Windows.Forms.Padding(10, 10, 3, 0)
+        Me.statuslbl.Name = "statuslbl"
+        Me.statuslbl.Padding = New System.Windows.Forms.Padding(5)
+        Me.statuslbl.Size = New System.Drawing.Size(188, 87)
+        Me.statuslbl.TabIndex = 28
+        Me.statuslbl.Text = "_"
+        '
+        'RadioButton1
+        '
+        Me.RadioButton1.Appearance = System.Windows.Forms.Appearance.Button
+        Me.RadioButton1.AutoEllipsis = True
+        Me.RadioButton1.BackColor = System.Drawing.Color.Transparent
+        Me.RadioButton1.BackgroundImage = Global.TextAnimYUI.My.Resources.Resources.scale1
+        Me.RadioButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.RadioButton1.Location = New System.Drawing.Point(131, 59)
+        Me.RadioButton1.Name = "RadioButton1"
+        Me.RadioButton1.Size = New System.Drawing.Size(33, 34)
+        Me.RadioButton1.TabIndex = 29
+        Me.RadioButton1.UseVisualStyleBackColor = False
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -941,6 +984,8 @@ Partial Class Form1
         Me.BackgroundImage = Global.TextAnimYUI.My.Resources.Resources.TexYUI
         Me.ClientSize = New System.Drawing.Size(988, 527)
         Me.ControlBox = False
+        Me.Controls.Add(Me.RadioButton1)
+        Me.Controls.Add(Me.statuslbl)
         Me.Controls.Add(Me.TextBox4)
         Me.Controls.Add(Me.Button19)
         Me.Controls.Add(Me.Button18)
@@ -1064,5 +1109,8 @@ Partial Class Form1
     Friend WithEvents NumericUpDown1 As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label22 As System.Windows.Forms.Label
     Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
+    Friend WithEvents ComboBox4 As System.Windows.Forms.ComboBox
+    Friend WithEvents statuslbl As System.Windows.Forms.Label
+    Friend WithEvents RadioButton1 As System.Windows.Forms.RadioButton
 
 End Class
