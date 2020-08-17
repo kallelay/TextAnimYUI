@@ -1,5 +1,5 @@
 ﻿Imports IrrlichtNETCP
-Module gFrames
+Public Module gFrames
 
 
     Public Class Frame 'VirtualFrame
@@ -92,10 +92,10 @@ Module gFrames
             DirectCast(Form1.Panel4.Controls.Find("Panel" & 12 + id - firstFrameInRow, True)(0), Panel).BackColor = CC((id - firstFrameInRow))
             DirectCast(Form1.Panel4.Controls.Find("Panel" & 11 + id - firstFrameInRow, True)(0), Panel).BackColor = CC((id - firstFrameInRow))
 
-     
+
         Else
-            If Frames.Count <= id + 1 Then GoTo Els
-            If Frames(id + 1).Cloned Then GoTo Els
+            If Frames.Count <= id + 1 Then GoTo els
+            If Frames(id + 1).Cloned Then GoTo els
 
             DirectCast(Form1.Panel4.Controls.Find("Panel" & 12 + id - firstFrameInRow, True)(0), Panel).BorderStyle = BorderStyle.FixedSingle
             If Frames(id).Cloned = False Then DirectCast(Form1.Panel4.Controls.Find("Panel" & 12 + id - firstFrameInRow, True)(0), Panel).BackColor = Drawing.Color.Gray

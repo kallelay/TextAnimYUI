@@ -77,6 +77,23 @@ Module YUIw_import_export
         Public allEnv As ListBox
         'Public AllFrames As List(Of Frame)
         Public AllFrames As New List(Of List(Of Frame))
+        Function Clone() As WORLD
+            Clone = New WORLD("") 'Directory & FileName)
+            Clone.Directory = Directory
+            Clone.FileName = FileName
+            Clone.DirectoryName = DirectoryName
+            Clone.meshCount = meshCount
+            Clone.PolyCount = PolyCount
+            Clone.VexCount = VexCount
+            Clone.mMesh = mMesh.Clone()
+            Clone.Bitmaps = Bitmaps.Clone()
+            Clone.polyEleven = polyEleven
+            Clone.ENV = ENV.Clone
+            Clone.TA = New ListBox() : Clone.TA.Items.AddRange(TA.Items)
+            Clone.allEnv = New ListBox() : Clone.allEnv.Items.AddRange(allEnv.Items)
+            Clone.AllFrames = New List(Of List(Of Frame))
+            Clone.AllFrames.AddRange(AllFrames)
+        End Function
 
         Sub New(ByVal filepath As String)
 

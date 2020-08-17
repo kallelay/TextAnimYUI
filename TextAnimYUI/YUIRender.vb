@@ -22,7 +22,7 @@ Module YUIRender
     '------------------------------------------------------------------------------------------------------------------------------
     Public Sub Init()
         'MAIN (init)
-        device = New IrrlichtDevice(DriverType.Direct3D9, New Dimension2D(380, 340), 32, False, True, False, False, Form1.Panel2.Handle)
+        device = New IrrlichtDevice(DriverType.Direct3D8, New Dimension2D(380, 340), 32, False, True, False, False, Form1.Panel2.Handle)
         device.CursorControl.Visible = True
         videoDriver = device.VideoDriver
         ScnMgr = device.SceneManager
@@ -39,7 +39,7 @@ Module YUIRender
 
         '----------------------------------------------------------------------------------------
         'UV editor (hardware accelerated, better!)
-        device2 = New IrrlichtDevice(DriverType.Direct3D9, New Dimension2D(256, 256), 32, False, True, False, False, Form1.Panel16.Handle)
+        device2 = New IrrlichtDevice(DriverType.Direct3D8, New Dimension2D(256, 256), 32, False, True, False, False, Form1.Panel16.Handle)
 
         videoDriver2 = device2.VideoDriver
         ScnMgr2 = device2.SceneManager
@@ -103,7 +103,7 @@ Module YUIRender
             Do Until (device.Run Or device2.Run) = False
 
 
-                If Form1.FORM1_LOST_FOCUS And Form2.FORM2_LOST_FOCUS And W_Control.FORM_W_LOST_FOCUS And SelectPolies.FORM_SPOLIES_LOST_FOCUS Then
+                If Form1.FORM1_LOST_FOCUS And Form2.FORM2_LOST_FOCUS And W_Control.FORM_W_LOST_FOCUS And texanimWExport.FORM_SPOLIES_LOST_FOCUS Then
                     Form1.Label1.Text = "FPS: Halt"
                     Threading.Thread.Sleep(10)
 

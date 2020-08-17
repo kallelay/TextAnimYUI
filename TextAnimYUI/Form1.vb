@@ -793,6 +793,9 @@ Public Class Form1
 
     Private Sub Button10_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button10.Click
         Saved = False
+
+        If Frames.Count <= CurrentFrame Then Exit Sub
+
         Frames.Remove(Frames(CurrentFrame))
         Me.Panel4.Controls.Find("Panel" & CurrentFrame - firstFrameInRow + 12, True)(0).BackgroundImage = Nothing
         CurrentFrame -= 1
@@ -1788,7 +1791,12 @@ Cursor.Position.Y < Me.Location.Y + Panel18.Location.Y + Panel18.Height Then
     End Sub
 
     Private Sub Button8_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button8.Click
-        SelectPolies.Show()
+
+        texanimWExport.Show()
+
+
+        nVolt_Main.Main(Gmodule.WorldFile)
+
     End Sub
 
     Private Sub Button21_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button21.Click

@@ -71,7 +71,7 @@
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         'Save world infos (for preview etc)
-        WorldFile = TextBox1.Text
+        Gmodule.WorldFile = TextBox1.Text
         WorldPath = Replace(TextBox1.Text, Split(TextBox1.Text, "\").Last, "")
         WorldName = Mid(Split(TextBox1.Text, "\").Last, 1, Len(Split(TextBox1.Text, "\").Last) - 2)
 
